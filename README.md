@@ -15,9 +15,10 @@ A collection of [Agent Skills](https://agentskills.io/specification) for illustr
 | 听到英文词，在棋盘上找到对应图片 | [图词宾果](#图词宾果) |
 | 扮演顾客和店员，用英语完成购物任务 | [情景任务包](#情景任务包) |
 | 把四张图排好，按顺序讲一个故事 | [四格故事与复述](#四格故事与复述) |
+| 一页一图，用中文、英文或双语读故事 | [多页绘本](#多页绘本) |
 | 把字母音连起来读，再读一本短元音小书 | [短元音拼读小书](#短元音拼读小书) |
 
-[切换脑图风格](#切换脑图风格) · [给脑图加学习标注](#给脑图加学习标注) · [切换词卡风格](#切换词卡风格)
+[切换脑图风格](#切换脑图风格) · [给脑图加学习标注](#给脑图加学习标注) · [切换词卡风格](#切换词卡风格) · [绘本风格与警车示例](#绘本风格与警车示例)
 
 ## 安装
 
@@ -61,11 +62,11 @@ uv run --script skills/gogoga-words-mindmap/scripts/render.py \
 
 做新主题时，可让 agent 按指定画法生成插画，也可直接提供素材。手写清单时，在 `style` 里选页面风格，在 `assets` 里填对应插画。同一份清单需要切换多套插画时，用 `style_assets` 为各风格指定素材。参见[清单格式](skills/gogoga-words-mindmap/references/design.md#排版输入)。
 
-其他示例见[梨的水彩导图](examples/pear/pear.png)和[梨的清单](examples/pear/pear.json)。
+其他示例见[梨的水彩导图](examples/pear/pear.png)、[梨的清单](examples/pear/pear.json)和[工程现场手绘警车导图](#绘本风格与警车示例)。
 
 ### 给脑图加学习标注
 
-脑图默认只显示英文。中文释义、中文分支标题、IPA 音标和页底问答可以分别打开，并与三种画风任意组合。
+脑图默认只显示英文。中文释义、中文分支标题、IPA 音标和页底问答可以分别打开，并与各画风任意组合。
 
 ```text
 用 gogoga-words-mindmap 做一张平涂卡通推土机导图。
@@ -101,7 +102,7 @@ uv run --script skills/gogoga-words-mindmap/scripts/render.py \
 用平涂卡通画清楚轮廓，每格配英文、英式音标和中文。
 ```
 
-命令行用 `--style watercolor`、`--style flat` 或 `--style photo` 选择配色，也可以在清单里设置 `style`。换画法时，在清单里指定对应的插画。实拍词卡使用你提供的照片。参见[词卡清单格式](skills/gogoga-words-cards/references/manifest.md#选画法与准备素材)。
+命令行用 `--style watercolor`、`--style flat`、`--style paper-collage` 或 `--style photo` 选择配色，也可以在清单里设置 `style`。换画法时，在清单里指定对应的插画。实拍词卡使用你提供的照片。参见[词卡清单格式](skills/gogoga-words-cards/references/manifest.md#选画法与准备素材)。
 
 示例清单见[水果图文卡](examples/fruit/fruit.json)和[交通工具词卡](examples/vehicles/vehicles.json)。
 
@@ -198,6 +199,22 @@ uv run --script skills/gogoga-words-mindmap/scripts/render.py \
 
 示例见[四格故事清单](examples/runaway-apple/story.json)。
 
+### 多页绘本
+
+同一个故事技能也可以用 `book` 模式，把寓言或民间故事排成一图一页的横向绘本。图下有正文，可用 `--language zh`、`--language en` 或 `--language bilingual` 切换语言。改字时可以直接复用插画。
+
+| 《狼来了》· 山坡放羊 | 狼真的来了 | 回村道歉 |
+| :---: | :---: | :---: |
+| <a href="examples/wolf-fable/book-01.png"><img src="examples/wolf-fable/book-01.png" width="245" alt="国风绘本《狼来了》，阿禾在山坡上守着三只羊"></a> | <a href="examples/wolf-fable/book-04.png"><img src="examples/wolf-fable/book-04.png" width="245" alt="狼从松树后出现，阿禾转身向村里呼喊"></a> | <a href="examples/wolf-fable/book-06.png"><img src="examples/wolf-fable/book-06.png" width="245" alt="阿禾找回羊群，回村向两位村民道歉"></a> |
+
+```text
+用 gogoga-words-story 的 book 模式做六页中英双语绘本《狼来了》。
+用国风木版淡彩画同一个山村，前两次喊狼用相近构图，第三次翻页才看见空山路。
+每页一幅图，图下先写短中文，再写对应的英文。附上生图提示词和排版步骤。
+```
+
+[六页成品与执行过程](examples/wolf-fable/) · [完整提示词](examples/wolf-fable/prompts.md) · [绘本清单](examples/wolf-fable/book.json)
+
 ## 短元音拼读小书
 
 技能名：[gogoga-words-phonics](skills/gogoga-words-phonics)
@@ -214,6 +231,30 @@ uv run --script skills/gogoga-words-mindmap/scripts/render.py \
 ```
 
 示例见[短元音 a 清单](examples/short-a/phonics.json)。小书用一张 A4 横向单面打印，按[折页说明](skills/gogoga-words-phonics/references/manifest.md#折成八页小书)剪折。
+
+## 绘本风格与警车示例
+
+在给 agent 的指令里写出画风。它会按各技能的画法说明准备无字插画。已有素材时，在 JSON 清单里填 `style`，或用 `--style` 选页面配色，再用 `assets` 指定对应的插画。
+
+| 画风 | 技能 | 怎么画 |
+| --- | --- | --- |
+| 工程现场手绘 `engineering` | [导图](#主题思维导图)、[讲读](#亲子讲读页)、[四格故事](#四格故事与复述) | 清楚的机械轮廓、实色水粉和细彩铅笔触，白底侧视图认部件，现场全景看人和车的关系。 |
+| 拟人动物生活 `animal-story` | [四格故事](#四格故事与复述) | 用原创动物角色和日常道具讲一件小事，靠眼神和姿势表现情绪。 |
+| 彩绘薄纸拼贴 `paper-collage` | [词卡](#基础词汇图文卡) | 用带笔刷纹理的彩纸边缘和叠色表现物体，纸纹留在图块内部。 |
+| 几何图案找找看 `pattern-search` | [场景讲读](#亲子讲读页) | 把目标藏进重复色块和图案里。场景可设置 `"show_markers": false` 隐藏图上编号。 |
+| 国风木版淡彩 `folk-print` | [多页绘本](#多页绘本) | 用墨线和少量刻痕描形，用靛蓝、朱砂、石绿和土黄设色。 |
+
+| 警车 · 部件导图 | 警车 · 校门口场景 | 警车 · 安全过街 |
+| :---: | :---: | :---: |
+| <a href="examples/police-car/mindmap.png"><img src="examples/police-car/mindmap.png" width="245" alt="警车双语导图，配部件引线、过街场景、四步流程和问答"></a> | <a href="examples/police-car/scene.png"><img src="examples/police-car/scene.png" width="245" alt="校门口警车场景，六个编号对应中英词表和三句领读"></a> | <a href="examples/police-car/story-01.png"><img src="examples/police-car/story-01.png" width="245" alt="警车协助孩子过街的四格双语故事"></a> |
+
+```text
+用工程现场手绘风格做一套警车英语启蒙图。用细铅笔轮廓和带彩铅笔触的水粉实色，纸面保持干净。
+画同一辆原创蓝白警车的斜前视图和正侧视图，再画校门口全景和四格故事。
+让孩子认车顶警灯、车轮、后视镜和前灯，再按到达、摆路锥、协助过街、离开的顺序复述。
+```
+
+示例清单见[警车导图](examples/police-car/mindmap.json)、[场景讲读](examples/police-car/scene.json)和[四格故事](examples/police-car/story.json)。故事另有[无字排序卡](examples/police-car/story-02.png)和[家长复述页](examples/police-car/story-03.png)。
 
 ## 复现示例
 
@@ -261,11 +302,19 @@ uv run --script skills/gogoga-words-story/scripts/render.py \
   examples/runaway-apple/story.json out/story.svg --png out/story.png
 uv run --script skills/gogoga-words-phonics/scripts/render.py \
   examples/short-a/phonics.json out/short-a.svg --png out/short-a.png
+uv run --script skills/gogoga-words-mindmap/scripts/render.py \
+  examples/police-car/mindmap.json out/police-mindmap.svg --png out/police-mindmap.png
+uv run --script skills/gogoga-words-read-along/scripts/render.py \
+  examples/police-car/scene.json out/police-scene.svg --mode scene --png out/police-scene.png
+uv run --script skills/gogoga-words-story/scripts/render.py \
+  examples/police-car/story.json out/police-story.svg --png out/police-story.png
+uv run --script skills/gogoga-words-story/scripts/render.py \
+  examples/wolf-fable/book.json out/wolf-fable/book.svg --png out/wolf-fable/book.png
 ```
 
 </details>
 
-导图和词卡为 1080 × 1440。讲读和活动页为 A4 纵向比例，拼读小书使用 A4 横向比例。打印时选择「适合页面」。复现预览字体时可用 macOS 的 Chalkboard 系列。
+导图和词卡为 1080 × 1440。单语绘本为 1440 × 1200，双语绘本为 1440 × 1320。讲读和活动页为 A4 纵向比例，拼读小书使用 A4 横向比例。打印时选择「适合页面」。复现英文预览字体时可用 macOS 的 Chalkboard 系列。
 
 ## 项目结构
 
@@ -284,9 +333,11 @@ examples/
 ├── farm/
 ├── fruit/
 ├── pear/
+├── police-car/
 ├── runaway-apple/
 ├── short-a/
-└── vehicles/
+├── vehicles/
+└── wolf-fable/
 tools/
 ├── worksheet.py
 └── sync_worksheet_support.py

@@ -1,0 +1,47 @@
+{
+  "mode": "book",
+  "style": "folk-print",
+  "language": "bilingual",
+  "title": "The Boy Who Cried Wolf",
+  "zh_title": "狼来了",
+  "assets": {
+    "hillside": {"file": "assets/hillside-atlas.png", "crop": [0, 0, 766, 510]},
+    "first-call": {"file": "assets/hillside-atlas.png", "crop": [770, 0, 1536, 510]},
+    "second-call": {"file": "assets/hillside-atlas.png", "crop": [0, 514, 766, 1024]},
+    "wolf": {"file": "assets/wolf-appears.png"},
+    "empty-path": {"file": "assets/hillside-atlas.png", "crop": [770, 514, 1536, 1024]},
+    "apology": {"file": "assets/apology.png"}
+  },
+  "scenes": [
+    {
+      "asset": "hillside",
+      "zh": "山坡上，阿禾守着三只羊。\n四周静悄悄的，他觉得有点无聊。",
+      "en": "Ahe looked after three sheep on a hillside.\nIt was so quiet that he felt bored."
+    },
+    {
+      "asset": "first-call",
+      "zh": "阿禾朝村里喊：“狼来了！”\n村民们急忙跑上山，却只看见他在笑。",
+      "en": "Ahe called toward the village, “Wolf!”\nThe villagers ran up the hill and found Ahe laughing."
+    },
+    {
+      "asset": "second-call",
+      "zh": "过了几天，阿禾又喊：“狼来了！”\n两位村民赶来一看，还是没有狼。",
+      "en": "A few days later, Ahe shouted “Wolf!” again.\nTwo villagers came to look. There was still no wolf."
+    },
+    {
+      "asset": "wolf",
+      "zh": "傍晚，一只狼真的从松树后走了出来。\n阿禾急得大喊：“狼来了！”",
+      "en": "One evening, a real wolf stepped out from behind the pine tree.\nAhe cried, “Wolf!”"
+    },
+    {
+      "asset": "empty-path",
+      "zh": "这一次，山路上一个人也没有。\n三只羊吓得跑散了，阿禾只好自己去找。",
+      "en": "This time, no one came up the path.\nThe sheep ran off, so Ahe had to find them on his own."
+    },
+    {
+      "asset": "apology",
+      "zh": "阿禾找回了羊，低着头回到村里。\n他说：“对不起，前两次我不该骗大家。”",
+      "en": "Ahe found his sheep and went back to the village with his head down.\n“I’m sorry I tricked you twice,” he said."
+    }
+  ]
+}

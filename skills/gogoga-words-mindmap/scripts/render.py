@@ -26,6 +26,7 @@ STYLES = {
     "watercolor": ("#2b201c", "#ad6255", ()),
     "flat": ("#263249", "#4276be", ("#4276be", "#20846a", "#ba5b29", "#a55b26", "#397b98", "#a35173", "#496eb5")),
     "diagram": ("#20334a", "#6d8399", ()),
+    "engineering": ("#253446", "#245387", ()),
 }
 FONT_DIR = Path("/System/Library/Fonts/Supplemental")
 PAPER_PATH = Path(__file__).resolve().parents[1] / "assets" / "paper-texture.jpg"
@@ -333,7 +334,7 @@ def speaking_footer(spec, display, ink, accent):
 def render(spec, base, style=None, display_overrides=None):
     style = style if style is not None else spec.get("style", "watercolor")
     if style not in STYLES:
-        raise ValueError("Use watercolor, flat, or diagram for the mind map style")
+        raise ValueError(f"Use one of these mind map styles: {', '.join(STYLES)}")
     ink, accent, branch_colors = STYLES[style]
     display = Display(**(spec.get("display", {}) | (display_overrides or {})))
     footer, map_bottom = speaking_footer(spec, display, ink, accent)

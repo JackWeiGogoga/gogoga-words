@@ -6,13 +6,18 @@
 
 """Render bilingual picture questions, read-aloud guides, or illustrated scenes."""
 
-from worksheet import ACCENT, LINE, MUTED, Page, argument_parser, batches, render_cli, wrap
+from worksheet import ACCENT, LINE, MUTED, PAPER, Page, argument_parser, batches, render_cli, wrap
 
 
 WIDTH, HEIGHT = 1240, 1754
 MARGIN, TOP, BOTTOM, GAP = 62, 185, 1653, 12
 TEXT_X, TEXT_WIDTH = 94, 555
 ART_X, ART_WIDTH = 686, 470
+THEMES = {
+    "default": (PAPER, ACCENT, LINE),
+    "engineering": ("#ffffff", "#245387", "#b8cce0"),
+    "pattern-search": ("#ffffff", "#793b70", "#dbc6dc"),
+}
 
 
 def prepare(section, mode):
@@ -50,12 +55,12 @@ def section_art(page, assets, images, y, height):
                 page.text(item["label"], center, top + row_h - 10, 22, color=MUTED, anchor="middle", max_width=slot - 16)
 
 
-def header(spec, name):
-    page = Page(WIDTH, HEIGHT, f'{spec["title"]} | {name}')
-    page.text(name, WIDTH - MARGIN, 79, 32, "strong", ACCENT, "end")
+def header(spec, name, paper, accent):
+    page = Page(WIDTH, HEIGHT, f'{spec["title"]} | {name}', paper)
+    page.text(name, WIDTH - MARGIN, 79, 32, "strong", accent, "end")
     page.text(spec["title"], MARGIN, 94, 70, "display", max_width=WIDTH - 2 * MARGIN - 325)
     page.text(spec["zh_title"], MARGIN + 3, 144, 33, "zh", max_width=WIDTH - 2 * MARGIN)
-    page.line(MARGIN, 162, WIDTH - MARGIN, 162, ACCENT, 2)
+    page.line(MARGIN, 162, WIDTH - MARGIN, 162, accent, 2)
     return page
 
 
@@ -64,7 +69,7 @@ def footer(page, note, number, total):
     page.text(f"{number:02} / {total:02}", WIDTH - MARGIN, 1705, 22, color=MUTED, anchor="end")
 
 
-def scene_pages(spec, assets):
+def scene_pages(spec, assets, paper, accent, border):
     scenes = spec["scenes"]
     if not scenes:
         raise ValueError("Add at least one illustrated scene")
@@ -75,36 +80,40 @@ def scene_pages(spec, assets):
         points, sentences = scene["points"], scene["lines"]
         if not 1 <= len(points) <= 8 or not 1 <= len(sentences) <= 6:
             raise ValueError(f"Use 1–8 picture points and 1–6 short sentences in scene {number}")
-        page = header(spec, "Scene Read")
+        show_markers = scene.get("show_markers", True)
+        if type(show_markers) is not bool:
+            raise ValueError(f"Scene {number} needs true or false for show_markers")
+        page = header(spec, "Scene Read", paper, accent)
         (image_w, image_h), _ = assets.image(scene["asset"])
         art_height = min(802, max(460, (content_width - 32) * image_h / image_w + 32))
-        page.rect(MARGIN, TOP, content_width, art_height, "#ffffff", LINE, 18)
+        page.rect(MARGIN, TOP, content_width, art_height, "#ffffff", border, 18)
         left, top, width, height = page.art(
             assets, scene["asset"], MARGIN + 16, TOP + 16, content_width - 32, art_height - 32,
         )
         legend_y = TOP + art_height + 46
-        page.text("Find & Say", MARGIN, legend_y, 30, "display", ACCENT)
+        page.text("Find & Say", MARGIN, legend_y, 30, "display", accent)
         for index, item in enumerate(points, 1):
             if not item["en"].strip() or not item["zh"].strip():
                 raise ValueError(f"Scene {number}, point {index} needs English and Chinese labels")
             px, py = item["point"]
             if any(type(value) not in (int, float) or not 0 <= value <= 1 for value in (px, py)):
                 raise ValueError(f"Scene {number}, point {index} must have two coordinates in [0, 1]")
-            cx, cy = left + width * px, top + height * py
-            page.rect(cx - 18, cy - 18, 36, 36, "#ffffff", ACCENT, 18)
-            page.text(str(index), cx, cy + 8, 24, "strong", ACCENT, "middle")
+            if show_markers:
+                cx, cy = left + width * px, top + height * py
+                page.rect(cx - 18, cy - 18, 36, 36, "#ffffff", accent, 18)
+                page.text(str(index), cx, cy + 8, 24, "strong", accent, "middle")
             row, column = divmod(index - 1, 3)
             x = MARGIN + legend_width * column
             y = legend_y + 18 + row * 63
-            page.rect(x + 4, y + 4, 29, 29, ACCENT, radius=15)
+            page.rect(x + 4, y + 4, 29, 29, accent, radius=15)
             page.text(str(index), x + 18.5, y + 26, 20, "strong", "#ffffff", "middle")
             page.text(item["en"], x + 46, y + 25, 27, "strong", max_width=legend_width - 56)
             page.text(item["zh"], x + 46, y + 52, 22, "zh", MUTED, max_width=legend_width - 56)
 
         y = legend_y + 18 + 63 * ((len(points) + 2) // 3) + 18
-        page.line(MARGIN, y, WIDTH - MARGIN, y, LINE)
+        page.line(MARGIN, y, WIDTH - MARGIN, y, border)
         y += 37
-        page.text("Read Along", MARGIN, y, 30, "display", ACCENT)
+        page.text("Read Along", MARGIN, y, 30, "display", accent)
         y += 40
         for sentence in sentences:
             for language, style, size, leading in (("en", "en", 29, 36), ("zh", "zh", 23, 30)):
@@ -117,14 +126,19 @@ def scene_pages(spec, assets):
                     page.text(line, MARGIN, y, size, style, MUTED if language == "zh" else "#322722")
                     y += leading
             y += 4
-        footer(page, "Point to a number, say the word, then read.", number, len(scenes))
+        note = "Point to a number, say the word, then read." if show_markers else "Find each picture, say the word, then read."
+        footer(page, note, number, len(scenes))
         pages.append(page)
     return pages
 
 
-def render(spec, assets, mode):
+def render(spec, assets, mode, style=None):
+    style = style if style is not None else spec.get("style", "default")
+    if style not in THEMES:
+        raise ValueError(f"Use one of these read-along styles: {', '.join(THEMES)}")
+    paper, accent, border = THEMES[style]
     if mode == "scene":
-        return scene_pages(spec, assets)
+        return scene_pages(spec, assets, paper, accent, border)
     sections = spec["sections"]
     if not sections:
         raise ValueError("Add at least one reading section")
@@ -143,11 +157,11 @@ def render(spec, assets, mode):
     pages = []
     for number, items in enumerate(groups, 1):
         name = "Picture Q&A" if mode == "qa" else "Read Along"
-        page = header(spec, name)
+        page = header(spec, name, paper, accent)
         y = TOP
         for index, section, lines, height in items:
-            page.rect(MARGIN, y, WIDTH - 2 * MARGIN, height, "#ffffff", LINE, 22)
-            page.text(f'{index:02}   {section["title"]}', TEXT_X, y + 48, 31, "display", ACCENT, max_width=TEXT_WIDTH)
+            page.rect(MARGIN, y, WIDTH - 2 * MARGIN, height, "#ffffff", border, 22)
+            page.text(f'{index:02}   {section["title"]}', TEXT_X, y + 48, 31, "display", accent, max_width=TEXT_WIDTH)
             page.line(667, y + 28, 667, y + height - 26)
             for line, style, size, offset in lines:
                 page.text(line, TEXT_X, y + offset, size, style, MUTED if style == "zh" else "#322722")
@@ -162,5 +176,6 @@ def render(spec, assets, mode):
 if __name__ == "__main__":
     parser = argument_parser(__doc__)
     parser.add_argument("--mode", choices=("qa", "read", "scene"), required=True)
+    parser.add_argument("--style", choices=THEMES, help="Override the style specified by the manifest")
     args = parser.parse_args()
-    render_cli(parser, args, lambda spec, assets: render(spec, assets, args.mode))
+    render_cli(parser, args, lambda spec, assets: render(spec, assets, args.mode, args.style))

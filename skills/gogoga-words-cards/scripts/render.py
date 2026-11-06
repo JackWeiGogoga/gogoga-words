@@ -15,13 +15,14 @@ THEMES = {
     "watercolor": (PAPER, ACCENT, LINE, MUTED, "display"),
     "flat": ("#ffffff", "#17645d", "#ccded9", "#455c58", "strong"),
     "photo": ("#ffffff", "#29486c", "#d6e0e9", "#485a6c", "strong"),
+    "paper-collage": ("#ffffff", "#8e4337", "#e7cfc1", "#6d534a", "display"),
 }
 
 
 def render(spec, assets, style=None):
     style = style if style is not None else spec.get("style", "watercolor")
     if style not in THEMES:
-        raise ValueError("Use watercolor, flat, or photo for the card style")
+        raise ValueError(f"Use one of these card styles: {', '.join(THEMES)}")
     paper, accent, border, muted, heading = THEMES[style]
     columns, rows = spec.get("columns", 5), spec.get("rows", 4)
     if type(columns) is not int or type(rows) is not int or not (2 <= columns <= 5 and 2 <= rows <= 5):

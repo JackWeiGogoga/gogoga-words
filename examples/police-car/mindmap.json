@@ -1,0 +1,55 @@
+{
+  "title": "Police Car",
+  "zh_title": "警车",
+  "style": "engineering",
+  "display": {"zh": true, "zh_headings": true, "qa": true},
+  "hero": "hero",
+  "speaking": {
+    "question": "Where is the light bar?",
+    "answer": "It is on the roof.",
+    "zh_question": "警灯在哪里？",
+    "zh_answer": "它在车顶上。"
+  },
+  "assets": {
+    "hero": {"file": "assets/patrol-car.png", "crop": [11, 299, 710, 745]},
+    "parts": {"file": "assets/patrol-car.png", "crop": [719, 333, 1528, 708]},
+    "street": {"file": "assets/school-crossing.png"},
+    "cone": {"file": "assets/school-crossing.png", "crop": [789, 713, 941, 915]},
+    "crosswalk": {"file": "assets/school-crossing.png", "crop": [967, 579, 1536, 852]},
+    "arrive": {"file": "assets/crossing-story.png", "crop": [0, 0, 720, 538]},
+    "place": {"file": "assets/crossing-story.png", "crop": [728, 0, 1448, 538]},
+    "cross": {"file": "assets/crossing-story.png", "crop": [0, 546, 720, 1086]},
+    "leave": {"file": "assets/crossing-story.png", "crop": [728, 546, 1448, 1086]}
+  },
+  "branches": [
+    {
+      "title": "Parts", "zh_title": "车身部件", "weight": 345, "layout": "callouts", "asset": "parts", "art_width": 238,
+      "labels": [
+        {"text": "light bar", "zh": "车顶警灯", "side": "left", "y": 0.24, "point": [0.279, 0.055]},
+        {"text": "wheel", "zh": "车轮", "side": "left", "y": 0.72, "point": [0.214, 0.813]},
+        {"text": "mirror", "zh": "后视镜", "side": "right", "y": 0.32, "point": [0.649, 0.397]},
+        {"text": "headlight", "zh": "前灯", "side": "right", "y": 0.74, "point": [0.942, 0.572]}
+      ]
+    },
+    {
+      "title": "Places", "zh_title": "工作地点", "weight": 280,
+      "items": [{"asset": "street", "label": "by the school gate", "zh": "在校门口"}]
+    },
+    {
+      "title": "Safety", "zh_title": "过街安全", "weight": 263,
+      "items": [
+        {"asset": "cone", "label": "traffic cone", "zh": "路锥"},
+        {"asset": "crosswalk", "label": "crosswalk", "zh": "人行横道"}
+      ]
+    },
+    {
+      "title": "On Duty", "zh_title": "工作步骤", "weight": 288, "layout": "sequence",
+      "items": [
+        {"asset": "arrive", "label": "arrive", "zh": "到达"},
+        {"asset": "place", "label": "place a cone", "zh": "摆好路锥"},
+        {"asset": "cross", "label": "help them cross", "zh": "帮助过街"},
+        {"asset": "leave", "label": "leave", "zh": "离开"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "title": "By the School Gate",
+  "zh_title": "警车来帮忙 · 校门口",
+  "style": "engineering",
+  "assets": {"street": {"file": "assets/school-crossing.png"}},
+  "scenes": [
+    {
+      "asset": "street",
+      "points": [
+        {"en": "police car", "zh": "警车", "point": [0.29, 0.68]},
+        {"en": "light bar", "zh": "车顶警灯", "point": [0.284, 0.418]},
+        {"en": "police officer", "zh": "警察", "point": [0.541, 0.601]},
+        {"en": "traffic cone", "zh": "路锥", "point": [0.602, 0.844]},
+        {"en": "crosswalk", "zh": "人行横道", "point": [0.873, 0.752]},
+        {"en": "school gate", "zh": "校门", "point": [0.605, 0.342]}
+      ],
+      "lines": [
+        {"en": "A police car is parked near the school.", "zh": "一辆警车停在学校附近。"},
+        {"en": "The officer stands by the crosswalk.", "zh": "警察站在人行横道旁。"},
+        {"en": "The children wait on the sidewalk.", "zh": "孩子们在人行道上等候。"}
+      ]
+    }
+  ]
+}

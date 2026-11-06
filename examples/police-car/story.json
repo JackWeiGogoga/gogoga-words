@@ -1,0 +1,37 @@
+{
+  "title": "A Safe Crossing",
+  "zh_title": "警车来帮忙 · 安全过街",
+  "style": "engineering",
+  "assets": {
+    "arrive": {"file": "assets/crossing-story.png", "crop": [0, 0, 720, 538]},
+    "place": {"file": "assets/crossing-story.png", "crop": [728, 0, 1448, 538]},
+    "cross": {"file": "assets/crossing-story.png", "crop": [0, 546, 720, 1086]},
+    "leave": {"file": "assets/crossing-story.png", "crop": [728, 546, 1448, 1086]}
+  },
+  "scenes": [
+    {
+      "asset": "arrive",
+      "en": "The police car arrives at the school.",
+      "zh": "警车开到了学校门口。",
+      "prompt": {"en": "Where does the police car arrive?", "zh": "警车开到了哪里？"}
+    },
+    {
+      "asset": "place",
+      "en": "The officer puts a cone by the curb.",
+      "zh": "警察在路缘旁放了一个路锥。",
+      "prompt": {"en": "What does the officer put by the curb?", "zh": "警察在路缘旁放了什么？"}
+    },
+    {
+      "asset": "cross",
+      "en": "The officer helps the children cross.",
+      "zh": "警察帮助孩子们过马路。",
+      "prompt": {"en": "Who helps the children cross?", "zh": "谁帮助孩子们过马路？"}
+    },
+    {
+      "asset": "leave",
+      "en": "The children wave as the car leaves.",
+      "zh": "警车开走时，孩子们挥手道别。",
+      "prompt": {"en": "What do the children do as the car leaves?", "zh": "警车开走时，孩子们做了什么？"}
+    }
+  ]
+}
