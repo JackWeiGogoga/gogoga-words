@@ -1,0 +1,100 @@
+{
+  "title": "Pear",
+  "hero": "hero",
+  "assets": {
+    "hero": {"file": "assets/pear-atlas.png", "crop": [52, 13, 277, 311]},
+    "green": {"file": "assets/pear-atlas.png", "crop": [337, 32, 537, 310]},
+    "yellow": {"file": "assets/pear-atlas.png", "crop": [599, 32, 798, 310]},
+    "red": {"file": "assets/pear-atlas.png", "crop": [875, 35, 1075, 310]},
+    "cutaway": {"file": "assets/pear-atlas.png", "crop": [1142, 14, 1350, 308]},
+    "sweet": {"file": "assets/pear-atlas.png", "crop": [41, 342, 269, 546]},
+    "juicy": {"file": "assets/pear-atlas.png", "crop": [329, 343, 549, 549]},
+    "crisp": {"file": "assets/pear-atlas.png", "crop": [581, 338, 806, 545]},
+    "slice": {"file": "assets/pear-atlas.png", "crop": [838, 354, 1103, 543]},
+    "bite": {"file": "assets/pear-atlas.png", "crop": [1145, 312, 1351, 567]},
+    "juice": {"file": "assets/pear-atlas.png", "crop": [39, 580, 271, 810]},
+    "tart": {"file": "assets/pear-atlas.png", "crop": [297, 601, 569, 808]},
+    "jam": {"file": "assets/pear-atlas.png", "crop": [586, 572, 806, 813]},
+    "shop": {"file": "assets/pear-atlas.png", "crop": [825, 565, 1108, 810]},
+    "cart": {"file": "assets/pear-atlas.png", "crop": [1118, 578, 1384, 811]},
+    "seed": {"file": "assets/pear-atlas.png", "crop": [44, 875, 242, 1042]},
+    "sprout": {"file": "assets/pear-atlas.png", "crop": [290, 849, 543, 1087]},
+    "tree": {"file": "assets/pear-tree.png", "crop": [56, 43, 1195, 1222]},
+    "blossoms": {"file": "assets/pear-atlas.png", "crop": [833, 843, 1109, 1105]},
+    "fruit": {"file": "assets/pear-atlas.png", "crop": [1138, 819, 1350, 1105]}
+  },
+  "branches": [
+    {
+      "title": "Size",
+      "weight": 160,
+      "items": [
+        {"asset": "hero", "label": "small", "scale": 0.56},
+        {"asset": "hero", "label": "medium", "scale": 0.78},
+        {"asset": "hero", "label": "big"}
+      ]
+    },
+    {
+      "title": "Color",
+      "weight": 168,
+      "items": [
+        {"asset": "green", "label": "green"},
+        {"asset": "yellow", "label": "yellow"},
+        {"asset": "red", "label": "red"}
+      ]
+    },
+    {
+      "title": "Parts",
+      "layout": "callouts",
+      "weight": 217,
+      "asset": "cutaway",
+      "labels": [
+        {"text": "stem", "side": "left", "y": 0.18, "point": [0.48, 0.20]},
+        {"text": "skin", "side": "left", "y": 0.48, "point": [0.13, 0.58]},
+        {"text": "flesh", "side": "left", "y": 0.80, "point": [0.29, 0.77]},
+        {"text": "leaf", "side": "right", "y": 0.16, "point": [0.74, 0.10]},
+        {"text": "core", "side": "right", "y": 0.58, "point": [0.54, 0.56]},
+        {"text": "seeds", "side": "right", "y": 0.85, "point": [0.57, 0.70]}
+      ]
+    },
+    {
+      "title": "Taste",
+      "weight": 162,
+      "items": [
+        {"asset": "sweet", "label": "sweet"},
+        {"asset": "juicy", "label": "juicy"},
+        {"asset": "crisp", "label": "crisp"}
+      ]
+    },
+    {
+      "title": "Eat",
+      "weight": 164,
+      "items": [
+        {"asset": "slice", "label": "slice"},
+        {"asset": "bite", "label": "bite"},
+        {"asset": "juice", "label": "juice"},
+        {"asset": "tart", "label": "pear tart"},
+        {"asset": "jam", "label": "jam"}
+      ]
+    },
+    {
+      "title": "Buy",
+      "weight": 177,
+      "items": [
+        {"asset": "shop", "label": "fruit shop"},
+        {"asset": "cart", "label": "supermarket"}
+      ]
+    },
+    {
+      "title": "Grow",
+      "layout": "sequence",
+      "weight": 204,
+      "items": [
+        {"asset": "seed", "label": "seed", "scale": 0.60},
+        {"asset": "sprout", "label": "sprout", "scale": 0.85},
+        {"asset": "tree", "label": "tree"},
+        {"asset": "blossoms", "label": "blossoms"},
+        {"asset": "fruit", "label": "fruit"}
+      ]
+    }
+  ]
+}

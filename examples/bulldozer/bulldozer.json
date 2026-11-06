@@ -1,0 +1,99 @@
+{
+  "title": "Bulldozer",
+  "hero": "hero",
+  "assets": {
+    "hero": {"file": "assets/bulldozer-atlas.png", "crop": [5, 68, 300, 304]},
+    "parts": {"file": "assets/bulldozer-atlas.png", "crop": [304, 83, 579, 279]},
+    "forward": {"file": "assets/bulldozer-atlas.png", "crop": [609, 74, 823, 278]},
+    "turn": {"file": "assets/bulldozer-atlas.png", "crop": [872, 42, 1114, 308]},
+    "reverse": {"file": "assets/bulldozer-atlas.png", "crop": [1154, 75, 1379, 279]},
+    "push": {"file": "assets/bulldozer-atlas.png", "crop": [5, 368, 284, 536]},
+    "spread": {"file": "assets/bulldozer-atlas.png", "crop": [291, 365, 566, 544]},
+    "level": {"file": "assets/bulldozer-atlas.png", "crop": [569, 373, 853, 538]},
+    "dirt": {"file": "assets/bulldozer-atlas.png", "crop": [863, 384, 1119, 525]},
+    "sand": {"file": "assets/bulldozer-atlas.png", "crop": [1133, 391, 1396, 531]},
+    "gravel": {"file": "assets/bulldozer-atlas.png", "crop": [5, 640, 278, 786]},
+    "road": {"file": "assets/bulldozer-atlas.png", "crop": [283, 600, 568, 806]},
+    "site": {"file": "assets/bulldozer-atlas.png", "crop": [572, 600, 850, 807]},
+    "quarry": {"file": "assets/bulldozer-atlas.png", "crop": [851, 593, 1122, 808]},
+    "hardhat": {"file": "assets/bulldozer-atlas.png", "crop": [1130, 611, 1384, 801]},
+    "belt": {"file": "assets/bulldozer-atlas.png", "crop": [3, 850, 280, 1104]},
+    "barrier": {"file": "assets/bulldozer-atlas.png", "crop": [288, 846, 565, 1105]},
+    "lower": {"file": "assets/bulldozer-atlas.png", "crop": [571, 885, 843, 1075]},
+    "lift": {"file": "assets/bulldozer-atlas.png", "crop": [846, 885, 1124, 1076]},
+    "boots": {"file": "assets/bulldozer-atlas.png", "crop": [1127, 872, 1392, 1092]},
+    "back_up_raised": {"file": "assets/back-up.png", "crop": [250, 72, 1285, 948]}
+  },
+  "branches": [
+    {
+      "title": "Parts",
+      "layout": "callouts",
+      "weight": 225,
+      "asset": "parts",
+      "art_width": 276,
+      "labels": [
+        {"text": "cab", "side": "left", "y": 0.33, "point": [0.29, 0.27]},
+        {"text": "tracks", "side": "left", "y": 0.79, "point": [0.24, 0.92]},
+        {"text": "hood", "side": "right", "y": 0.41, "point": [0.61, 0.48]},
+        {"text": "blade", "side": "right", "y": 0.77, "point": [0.90, 0.72]}
+      ]
+    },
+    {
+      "title": "Move",
+      "weight": 164,
+      "items": [
+        {"asset": "forward", "label": "go forward"},
+        {"asset": "turn", "label": "turn"},
+        {"asset": "reverse", "label": "back up"}
+      ]
+    },
+    {
+      "title": "Jobs",
+      "weight": 178,
+      "items": [
+        {"asset": "push", "label": "push dirt"},
+        {"asset": "spread", "label": "spread gravel"},
+        {"asset": "level", "label": "level the ground"}
+      ]
+    },
+    {
+      "title": "Materials",
+      "weight": 145,
+      "items": [
+        {"asset": "dirt", "label": "dirt"},
+        {"asset": "sand", "label": "sand"},
+        {"asset": "gravel", "label": "gravel"}
+      ]
+    },
+    {
+      "title": "Places",
+      "weight": 166,
+      "items": [
+        {"asset": "road", "label": "road work"},
+        {"asset": "site", "label": "building site"},
+        {"asset": "quarry", "label": "quarry"}
+      ]
+    },
+    {
+      "title": "Safety",
+      "weight": 172,
+      "items": [
+        {"asset": "hardhat", "label": "hard hat"},
+        {"asset": "boots", "label": "work boots"},
+        {"asset": "belt", "label": "seat belt"},
+        {"asset": "barrier", "label": "stay back"}
+      ]
+    },
+    {
+      "title": "At Work",
+      "layout": "sequence",
+      "weight": 207,
+      "items": [
+        {"asset": "lower", "label": "lower the blade"},
+        {"asset": "push", "label": "push dirt"},
+        {"asset": "lift", "label": "lift the blade"},
+        {"asset": "back_up_raised", "label": "back up"}
+      ]
+    }
+  ]
+}
