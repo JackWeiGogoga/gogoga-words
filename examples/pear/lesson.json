@@ -1,0 +1,60 @@
+{
+  "title": "Pear",
+  "zh_title": "梨",
+  "assets_from": "pear.json",
+  "sections": [
+    {
+      "title": "Colors",
+      "images": [
+        {"asset": "green", "label": "green"},
+        {"asset": "yellow", "label": "yellow"},
+        {"asset": "red", "label": "red"}
+      ],
+      "question": {"en": "What colors can pears be?", "zh": "梨可以是什么颜色？"},
+      "answer": {"en": "They can be green, yellow, or red.", "zh": "可以是绿色、黄色或红色。"},
+      "read": {"en": "Look at the pears. Some are green, some are yellow, and some are red.", "zh": "看看这些梨。有的绿，有的黄，还有的红。"}
+    },
+    {
+      "title": "Inside a Pear",
+      "images": [{"asset": "cutaway", "label": "pear half"}],
+      "question": {"en": "What can you see inside the pear?", "zh": "你在梨里面看到了什么？"},
+      "answer": {"en": "I can see the flesh and the seeds.", "zh": "我看到了果肉和种子。"},
+      "read": {"en": "The skin is on the outside. Inside is the flesh. The seeds are in the core.", "zh": "外面是果皮，里面是果肉。种子在果核里。"}
+    },
+    {
+      "title": "Taste and Feel",
+      "images": [
+        {"asset": "sweet", "label": "sweet"},
+        {"asset": "juicy", "label": "juicy"},
+        {"asset": "crisp", "label": "crisp"}
+      ],
+      "question": {"en": "What is this pear like?", "zh": "这只梨吃起来怎么样？"},
+      "answer": {"en": "It is sweet, juicy, and crisp.", "zh": "它又甜、又多汁、又脆。"},
+      "read": {"en": "Take a bite. This pear is sweet and juicy. Listen to the crunch!", "zh": "咬一口。这只梨又甜又多汁。听，咔嚓一声！"}
+    },
+    {
+      "title": "Ways to Eat",
+      "images": [
+        {"asset": "slice", "label": "slices"},
+        {"asset": "juice", "label": "juice"},
+        {"asset": "tart", "label": "pear tart"}
+      ],
+      "question": {"en": "What can we make with pears?", "zh": "我们可以用梨做什么？"},
+      "answer": {"en": "We can make pear juice or a pear tart.", "zh": "可以做梨汁，也可以做梨挞。"},
+      "read": {"en": "We can eat pear slices, drink pear juice, or bake a pear tart.", "zh": "我们可以吃梨片、喝梨汁，也可以烤梨挞。"}
+    },
+    {
+      "title": "From Seed to Fruit",
+      "images": [
+        {"asset": "seed", "label": "seed"},
+        {"asset": "sprout", "label": "sprout"},
+        {"asset": "tree", "label": "tree"},
+        {"asset": "blossoms", "label": "blossoms"},
+        {"asset": "fruit", "label": "fruit"}
+      ],
+      "question": {"en": "What comes after the blossoms?", "zh": "梨树开花后，会长出什么？"},
+      "answer": {"en": "Pears grow after the tree flowers.", "zh": "梨树开花后会长出梨。"},
+      "read": {"en": "A seed sprouts and grows into a tree. Flowers bloom, and then pears grow.", "zh": "种子发芽，长成树。梨树先开花，再结果。"}
+    }
+  ]
+}
