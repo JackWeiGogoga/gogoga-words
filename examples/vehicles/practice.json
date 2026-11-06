@@ -1,0 +1,9 @@
+{
+  "title": "Vehicles",
+  "assets_from": "vehicles.json",
+  "sections": [
+    {"title": "On Land", "zh_title": "陆上", "images": [{"asset": "bicycle"}, {"asset": "bus"}, {"asset": "fire-engine"}, {"asset": "excavator"}]},
+    {"title": "On Water", "zh_title": "水上", "images": [{"asset": "sailboat"}, {"asset": "speedboat"}, {"asset": "ferry"}]},
+    {"title": "In the Air", "zh_title": "空中", "images": [{"asset": "helicopter"}, {"asset": "aeroplane"}, {"asset": "balloon"}]}
+  ]
+}

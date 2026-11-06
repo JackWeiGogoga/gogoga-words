@@ -1,0 +1,32 @@
+{
+  "title": "Vehicles",
+  "zh_title": "交通工具",
+  "style": "flat",
+  "pronunciation": "British English · IPA",
+  "columns": 2,
+  "rows": 5,
+  "assets": {
+    "bicycle": {"file": "assets/vehicles-flat.png", "crop": [12, 197, 311, 427], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [0, 234, 297, 463]}},
+    "bus": {"file": "assets/vehicles-flat.png", "crop": [313, 218, 642, 422], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [298, 264, 604, 448]}},
+    "fire-engine": {"file": "assets/vehicles-flat.png", "crop": [648, 181, 975, 425], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [606, 222, 920, 458]}},
+    "excavator": {"file": "assets/vehicles-flat.png", "crop": [982, 165, 1298, 431], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [925, 198, 1242, 476]}},
+    "sailboat": {"file": "assets/vehicles-flat.png", "crop": [1306, 149, 1608, 435], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [1247, 188, 1536, 478]}},
+    "speedboat": {"file": "assets/vehicles-flat.png", "crop": [8, 650, 317, 782], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [0, 666, 296, 811]}},
+    "ferry": {"file": "assets/vehicles-flat.png", "crop": [324, 593, 645, 797], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [296, 618, 600, 830]}},
+    "helicopter": {"file": "assets/vehicles-flat.png", "crop": [646, 606, 983, 804], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [600, 627, 920, 837]}},
+    "aeroplane": {"file": "assets/vehicles-flat.png", "crop": [984, 607, 1321, 793], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [920, 629, 1241, 826]}},
+    "balloon": {"file": "assets/vehicles-flat.png", "crop": [1341, 520, 1591, 862], "line_art": {"file": "assets/vehicles-line-art.png", "crop": [1262, 560, 1519, 900]}}
+  },
+  "items": [
+    {"asset": "bicycle", "en": "bicycle", "ipa": "/ˈbaɪsɪkəl/", "zh": "自行车"},
+    {"asset": "bus", "en": "bus", "ipa": "/bʌs/", "zh": "公交车"},
+    {"asset": "fire-engine", "en": "fire engine", "ipa": "/ˈfaɪər ˌendʒɪn/", "zh": "消防车"},
+    {"asset": "excavator", "en": "excavator", "ipa": "/ˈekskəveɪtə/", "zh": "挖掘机"},
+    {"asset": "sailboat", "en": "sailboat", "ipa": "/ˈseɪlbəʊt/", "zh": "帆船"},
+    {"asset": "speedboat", "en": "speedboat", "ipa": "/ˈspiːdbəʊt/", "zh": "快艇"},
+    {"asset": "ferry", "en": "ferry", "ipa": "/ˈferi/", "zh": "渡轮"},
+    {"asset": "helicopter", "en": "helicopter", "ipa": "/ˈhelɪkɒptə/", "zh": "直升机"},
+    {"asset": "aeroplane", "en": "aeroplane", "ipa": "/ˈeərəpleɪn/", "zh": "飞机"},
+    {"asset": "balloon", "en": "hot-air balloon", "ipa": "/hɒtˈeə bəˌluːn/", "zh": "热气球"}
+  ]
+}

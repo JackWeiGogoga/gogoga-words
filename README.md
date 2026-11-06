@@ -10,8 +10,10 @@ A collection of [Agent Skills](https://agentskills.io/specification) for illustr
 | --- | --- |
 | 看懂一个事物的部位、特征和变化 | [主题思维导图](#主题思维导图) |
 | 看图认一组词，比如水果、衣服或动物 | [基础词汇图文卡](#基础词汇图文卡) |
-| 和大人一起看图问答，或跟读短句 | [亲子讲读页](#亲子讲读页) |
-| 自己看图复述，或动手剪贴排序 | [打印互动练习](#打印互动练习) |
+| 和大人一起看图问答，或指着场景跟读 | [亲子讲读页](#亲子讲读页) |
+| 自己看图复述，或动手剪贴配对 | [打印互动练习](#打印互动练习) |
+
+[切换脑图风格](#切换脑图风格) · [切换词卡风格](#切换词卡风格)
 
 ## 安装
 
@@ -31,75 +33,94 @@ npx skills add JackWeiGogoga/gogoga-words --skill gogoga-words-mindmap
 
 技能名：[gogoga-words-mindmap](skills/gogoga-words-mindmap)
 
-围绕一个事物展开，把能指认的部位、能比较的特征和能按顺序讲的过程画在同一张图上。比如用梨的切面学部位，用箭头讲生长过程；也可以用推土机的侧视图学部件，再看它怎样工作。
+围绕一个事物展开，把能指认的部位、能比较的特征和能按顺序讲的过程画在同一张图上。科普主题可以用切面看内部、侧视图学部件、连续图讲步骤。
 
-| 梨 · 颜色、部位与生长 | 推土机 · 部件与工作过程 |
-| :---: | :---: |
-| <a href="examples/pear/pear.png"><img src="examples/pear/pear.png" width="320" alt="梨主题英语导图，展示颜色、切面部位和生长过程"></a> | <a href="examples/bulldozer/bulldozer.png"><img src="examples/bulldozer/bulldozer.png" width="320" alt="推土机主题英语导图，展示部件标注、工作场景和推土步骤"></a> |
+### 切换脑图风格
 
-**用法示例**
+在对话里告诉 agent 你要的画法。下面的指令可以直接使用。
 
 ```text
-用 gogoga-words-mindmap 给英语初学的 6 岁孩子做一张梨的导图。
-标出果皮、果肉和种子，用箭头画出从种子发芽到结果的过程。
+用 gogoga-words-mindmap 做一张平涂卡通风格的推土机英语导图。
+用侧视图标出铲刀和履带，再用四张小图讲推土过程。
 ```
 
-示例清单：[梨](examples/pear/pear.json) · [推土机](examples/bulldozer/bulldozer.json)
+| 彩铅水彩 `watercolor`（默认） | 平涂卡通 `flat` | 科普线描 `diagram` |
+| :---: | :---: | :---: |
+| <a href="examples/bulldozer/bulldozer.png"><img src="examples/bulldozer/bulldozer.png" width="245" alt="推土机水彩导图，细纸纹和砖红引线"></a> | <a href="examples/bulldozer/bulldozer-flat.png"><img src="examples/bulldozer/bulldozer-flat.png" width="245" alt="推土机平涂导图，白底、粗描边和多色分支"></a> | <a href="examples/bulldozer/bulldozer-diagram.png"><img src="examples/bulldozer/bulldozer-diagram.png" width="245" alt="推土机科普线描导图，白底、蓝灰引线和细描边"></a> |
+
+从仓库根目录运行下面的命令。将 `flat` 换成 `watercolor` 或 `diagram`，即可用同一份推土机清单切换画风。
+
+```sh
+uv run --script skills/gogoga-words-mindmap/scripts/render.py \
+  examples/bulldozer/bulldozer.json bulldozer.svg --style flat
+```
+
+做新主题时，可让 agent 按指定画法生成插画，也可直接提供素材。手写清单时，在 `style` 里选页面风格，在 `assets` 里填对应插画。同一份清单需要切换多套插画时，用 `style_assets` 为各风格指定素材。参见[清单格式](skills/gogoga-words-mindmap/references/design.md#排版输入)。
+
+其他示例见[梨的水彩导图](examples/pear/pear.png)和[梨的清单](examples/pear/pear.json)。
 
 ## 基础词汇图文卡
 
 技能名：[gogoga-words-cards](skills/gogoga-words-cards)
 
-把同一类词排成网格，每格放一幅插画、一个英文词、音标和中文释义。适合做水果、衣服、动物等主题的图画词典。下面这张水果词卡收录了 20 个词，统一标注英式音标。
+把同一类词排成网格，每格放一幅图、一个英文词、音标和中文释义。**彩铅水彩**适合水果等自然主题，**平涂卡通**用大色块和清楚的轮廓区分车辆、衣服等物品。也可以提供自己的照片制作**实拍词卡**，用来认实物或练日常动作。
 
-<a href="examples/fruit/fruit.png"><img src="examples/fruit/fruit.png" width="460" alt="水果图文卡，20 格插画下分别标注英文、英式音标和中文"></a>
+| 水果 · 彩铅水彩 | 交通工具 · 平涂卡通 |
+| :---: | :---: |
+| <a href="examples/fruit/fruit.png"><img src="examples/fruit/fruit.png" width="320" alt="20 格水果水彩词卡，配英文、英式音标和中文"></a> | <a href="examples/vehicles/vehicles.png"><img src="examples/vehicles/vehicles.png" width="320" alt="10 格交通工具平涂卡通词卡，配英文、英式音标和中文"></a> |
 
-**用法示例**
+### 切换词卡风格
 
 ```text
-用 gogoga-words-cards 做一张水果词卡。选 20 种水果，排成 5 列 4 行。
-每格放一幅图，下方写英文、英式音标和中文。
+用 gogoga-words-cards 做一张交通工具词卡。选 10 种车辆、船和飞机，排成 2 列 5 行。
+用平涂卡通画清楚轮廓，每格配英文、英式音标和中文。
 ```
 
-示例清单：[水果图文卡](examples/fruit/fruit.json)
+命令行用 `--style watercolor`、`--style flat` 或 `--style photo` 选择配色，也可以在清单里设置 `style`。换画法时，在清单里指定对应的插画。实拍词卡使用你提供的照片。参见[词卡清单格式](skills/gogoga-words-cards/references/manifest.md#选画法与准备素材)。
+
+示例清单见[水果图文卡](examples/fruit/fruit.json)和[交通工具词卡](examples/vehicles/vehicles.json)。
 
 ## 亲子讲读页
 
 技能名：[gogoga-words-read-along](skills/gogoga-words-read-along)
 
-把主题插画和单词编成可以开口说的短句。**看图问答**为每组图配一个问题和示范回答；**连续领读**把同一组词串成一小段英文。两种都附中文，方便家长带读。
+**看图问答**为每组图配一个问题和示范回答。**连续领读**把同组词串成一小段英文。**绘本式场景**用一幅完整插画串起单词和句子，让孩子按编号在图上找，再跟读。三种都配中文。
 
-| 梨篇 · 看图问答 | 梨篇 · 连续领读 |
-| :---: | :---: |
-| <a href="examples/pear/pear-qa.png"><img src="examples/pear/pear-qa.png" width="320" alt="梨篇双语问答页，每组插画配一个英文问题和示范回答"></a> | <a href="examples/pear/pear-read.png"><img src="examples/pear/pear-read.png" width="320" alt="梨篇双语领读页，每组插画配几句连贯的英文和对应中文"></a> |
+| 梨篇 · 看图问答 | 梨篇 · 连续领读 | 农场 · 绘本式场景 |
+| :---: | :---: | :---: |
+| <a href="examples/pear/pear-qa.png"><img src="examples/pear/pear-qa.png" width="245" alt="梨篇双语问答页，每组插画配一个英文问题和示范回答"></a> | <a href="examples/pear/pear-read.png"><img src="examples/pear/pear-read.png" width="245" alt="梨篇双语领读页，每组插画配几句连贯的英文和对应中文"></a> | <a href="examples/farm/farm.png"><img src="examples/farm/farm.png" width="245" alt="农场场景讲读页，图上五个编号对应双语词表和三句领读"></a> |
 
 **用法示例**
 
 ```text
-用 gogoga-words-read-along 根据这张梨的导图，做一页双语看图问答。
-每组图配一个孩子能指着图回答的问题，再给一句简短的英文示范回答。
+用 gogoga-words-read-along 做一页农场绘本式场景。
+在同一张图上标出谷仓、拖拉机、奶牛、绵羊和鸭子，用“I can see…”写三句双语领读。
 ```
 
-把指令中的「看图问答」换成「连续领读」，就能得到右图的版式。示例清单：[梨篇讲读](examples/pear/lesson.json)。
+示例清单见[梨篇讲读](examples/pear/lesson.json)和[农场场景](examples/farm/scene.json)。
 
 ## 打印互动练习
 
 技能名：[gogoga-words-practice](skills/gogoga-words-practice)
 
-把学过的插画变成 A4 练习。**无字复述页**保留分组图片、组号和空线，让孩子自己说或写。**贴纸页**给每张图加虚线裁切框，可以剪下来做配对、排序或复述。
+把学过的插画变成 A4 练习。**无字复述**保留分组图片、组号和空线。**贴纸页**给每张图加虚线裁切框。**剪贴配对**额外生成一张带类别标题的底板，孩子可以把图卡剪下来贴到对应的空格。练习可以用彩色图，也可以用黑白线稿涂色。
 
 | 梨篇 · 无字复述 | 梨篇 · 剪贴排序 |
 | :---: | :---: |
 | <a href="examples/pear/pear-blank.png"><img src="examples/pear/pear-blank.png" width="320" alt="梨篇无字复述页，保留分组插画、组号和空白书写线"></a> | <a href="examples/pear/pear-stickers.png"><img src="examples/pear/pear-stickers.png" width="320" alt="梨篇剪贴纸页，每幅插画都有独立的虚线裁切框"></a> |
 
+| 交通工具 · 分类底板 | 交通工具 · 彩色剪贴 | 交通工具 · 黑白线稿 |
+| :---: | :---: | :---: |
+| <a href="examples/vehicles/match-01.png"><img src="examples/vehicles/match-01.png" width="245" alt="交通工具分类底板，分陆上、水上、空中三组，每组有可贴图卡的空格"></a> | <a href="examples/vehicles/match-02.png"><img src="examples/vehicles/match-02.png" width="245" alt="顺序打散的十张彩色交通工具图卡，尺寸与底板空格一致"></a> | <a href="examples/vehicles/match-ink-02.png"><img src="examples/vehicles/match-ink-02.png" width="245" alt="十张可涂色的交通工具黑白线稿图卡，带虚线裁切框"></a> |
+
 **用法示例**
 
 ```text
-用 gogoga-words-practice 复用梨篇的插画，做一页无字复述和一页可剪贴纸。
-复述页沿用原来的分组，贴纸页让孩子把发芽、开花、结果的图排成正确顺序。
+用 gogoga-words-practice 复用交通工具插画，做一套陆上、水上、空中的剪贴配对。
+输出底板和打散顺序的图卡，再做一版可以涂色的黑白线稿。
 ```
 
-练习页和讲读页共用[梨篇清单](examples/pear/lesson.json)，通过 `assets_from` 复用导图插画。
+练习示例见[梨篇清单](examples/pear/lesson.json)和[交通工具配对清单](examples/vehicles/practice.json)。交通工具配对复用了词卡的素材，可选彩色图或线稿。
 
 ## 复现示例
 
@@ -114,16 +135,28 @@ uv run --script skills/gogoga-words-mindmap/scripts/render.py \
   examples/pear/pear.json out/pear.svg --png out/pear.png
 uv run --script skills/gogoga-words-mindmap/scripts/render.py \
   examples/bulldozer/bulldozer.json out/bulldozer.svg --png out/bulldozer.png
+uv run --script skills/gogoga-words-mindmap/scripts/render.py \
+  examples/bulldozer/bulldozer.json out/bulldozer-flat.svg --style flat --png out/bulldozer-flat.png
+uv run --script skills/gogoga-words-mindmap/scripts/render.py \
+  examples/bulldozer/bulldozer.json out/bulldozer-diagram.svg --style diagram --png out/bulldozer-diagram.png
 uv run --script skills/gogoga-words-cards/scripts/render.py \
   examples/fruit/fruit.json out/fruit.svg --png out/fruit.png
+uv run --script skills/gogoga-words-cards/scripts/render.py \
+  examples/vehicles/vehicles.json out/vehicles.svg --png out/vehicles.png
 uv run --script skills/gogoga-words-read-along/scripts/render.py \
   examples/pear/lesson.json out/pear-qa.svg --mode qa --png out/pear-qa.png
 uv run --script skills/gogoga-words-read-along/scripts/render.py \
   examples/pear/lesson.json out/pear-read.svg --mode read --png out/pear-read.png
+uv run --script skills/gogoga-words-read-along/scripts/render.py \
+  examples/farm/scene.json out/farm.svg --mode scene --png out/farm.png
 uv run --script skills/gogoga-words-practice/scripts/render.py \
   examples/pear/lesson.json out/pear-blank.svg --mode blank --png out/pear-blank.png
 uv run --script skills/gogoga-words-practice/scripts/render.py \
   examples/pear/lesson.json out/pear-stickers.svg --mode stickers --png out/pear-stickers.png
+uv run --script skills/gogoga-words-practice/scripts/render.py \
+  examples/vehicles/practice.json out/match.svg --mode match --png out/match.png
+uv run --script skills/gogoga-words-practice/scripts/render.py \
+  examples/vehicles/practice.json out/match-ink.svg --mode match --line-art --png out/match-ink.png
 ```
 
 </details>
@@ -140,8 +173,10 @@ skills/
 └── gogoga-words-practice/
 examples/
 ├── bulldozer/
+├── farm/
 ├── fruit/
-└── pear/
+├── pear/
+└── vehicles/
 tools/
 ├── worksheet.py
 └── sync_worksheet_support.py

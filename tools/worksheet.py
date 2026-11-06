@@ -13,7 +13,7 @@ import subprocess
 from tempfile import TemporaryDirectory
 from unicodedata import east_asian_width
 
-from PIL import Image, ImageFont
+from PIL import Image, ImageFont, ImageOps
 
 
 INK = "#322722"
@@ -64,18 +64,26 @@ def wrap(value, width, size, style):
 @cache
 def source(path):
     with Image.open(path) as image:
-        return image.convert("RGBA")
+        return ImageOps.exif_transpose(image).convert("RGBA")
 
 
 class Assets:
-    def __init__(self, entries):
+    def __init__(self, entries, use_line_art=False):
         self.entries = entries
+        self.use_line_art = use_line_art
+
+    def line_art(self):
+        return Assets(self.entries, use_line_art=True)
 
     @cache
     def image(self, key):
         if key not in self.entries:
             raise ValueError(f"Unknown illustration: {key!r}")
         directory, entry = self.entries[key]
+        if self.use_line_art:
+            if "line_art" not in entry:
+                raise ValueError(f"Missing line_art artwork for {key!r}")
+            entry = entry["line_art"]
         image = source((directory / entry["file"]).resolve())
         if "crop" in entry:
             x1, y1, x2, y2 = entry["crop"]
@@ -84,8 +92,12 @@ class Assets:
             ):
                 raise ValueError(f"Invalid crop for illustration {key!r}")
             image = image.crop((x1, y1, x2, y2))
-        if image.getchannel("A").getbbox() is None:
+        alpha = image.getchannel("A")
+        if alpha.getbbox() is None:
             raise ValueError(f"Empty illustration: {key!r}")
+        if self.use_line_art:
+            image = ImageOps.grayscale(image)
+            image.putalpha(alpha)
         data = BytesIO()
         image.save(data, "PNG")
         uri = "data:image/png;base64," + base64.b64encode(data.getvalue()).decode("ascii")
@@ -144,10 +156,12 @@ class Page:
         (src_w, src_h), uri = assets.image(key)
         scale = min(width / src_w, height / src_h)
         w, h = src_w * scale, src_h * scale
+        left, top = x + (width - w) / 2, y + (height - h) / 2
         self.markup.append(
-            f'<image x="{x + (width-w)/2:.2f}" y="{y + (height-h)/2:.2f}" '
+            f'<image x="{left:.2f}" y="{top:.2f}" '
             f'width="{w:.2f}" height="{h:.2f}" xlink:href="{uri}"/>'
         )
+        return left, top, w, h
 
     def svg(self):
         return "\n".join((*self.markup, "</svg>", ""))

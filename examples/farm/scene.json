@@ -1,0 +1,22 @@
+{
+  "title": "Farm Morning",
+  "zh_title": "农场的早晨",
+  "assets": {"farm": {"file": "assets/farm-scene.png"}},
+  "scenes": [
+    {
+      "asset": "farm",
+      "points": [
+        {"en": "barn", "zh": "谷仓", "point": [0.414, 0.249]},
+        {"en": "tractor", "zh": "拖拉机", "point": [0.893, 0.300]},
+        {"en": "cow", "zh": "奶牛", "point": [0.091, 0.542]},
+        {"en": "sheep", "zh": "绵羊", "point": [0.885, 0.486]},
+        {"en": "duck", "zh": "鸭子", "point": [0.632, 0.810]}
+      ],
+      "lines": [
+        {"en": "I can see a red barn and a tractor.", "zh": "我看见一座红色的谷仓和一辆拖拉机。"},
+        {"en": "I can see a cow and a sheep in the field.", "zh": "我看见草地上有一头奶牛和一只绵羊。"},
+        {"en": "I can see a duck in the pond.", "zh": "我看见池塘里有一只鸭子。"}
+      ]
+    }
+  ]
+}

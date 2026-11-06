@@ -20,7 +20,11 @@ from PIL import Image, ImageFont
 
 
 WIDTH, HEIGHT = 1080, 1440
-INK, BRICK = "#2b201c", "#ad6255"
+STYLES = {
+    "watercolor": ("#2b201c", "#ad6255", ()),
+    "flat": ("#263249", "#4276be", ("#4276be", "#20846a", "#ba5b29", "#a55b26", "#397b98", "#a35173", "#496eb5")),
+    "diagram": ("#20334a", "#6d8399", ()),
+}
 FONT_DIR = Path("/System/Library/Fonts/Supplemental")
 PAPER_PATH = Path(__file__).resolve().parents[1] / "assets" / "paper-texture.jpg"
 NUMBER_X = 354
@@ -50,19 +54,19 @@ def text_width(value, size, bold=False):
     return font(size, bold).getlength(value)
 
 
-def lettering(value, x, y, size, anchor="start", bold=False):
+def lettering(value, x, y, size, color, anchor="start", bold=False):
     weight = "700" if bold else "400"
     family = "Chalkboard SE" if bold else "Chalkboard"
     return (
         f'<text x="{x:.2f}" y="{y:.2f}" font-family="{family}, Comic Sans MS, sans-serif" '
         f'font-size="{size}" font-weight="{weight}" text-anchor="{anchor}" '
-        f'fill="{INK}">{escape(value)}</text>'
+        f'fill="{color}">{escape(value)}</text>'
     )
 
 
-def stroke(path, width=2.6):
+def stroke(path, color, width=2.6):
     return (
-        f'<path d="{path}" fill="none" stroke="{BRICK}" '
+        f'<path d="{path}" fill="none" stroke="{color}" '
         f'stroke-width="{width}" stroke-linecap="round" stroke-linejoin="round"/>'
     )
 
@@ -107,7 +111,7 @@ def fit(image, x, y, w, h, bottom=False):
     )
 
 
-def branch_curve(end_y, hero_top, hero_bottom):
+def branch_curve(end_y, hero_top, hero_bottom, accent):
     if end_y < 560:
         proportion = (end_y - 90) / 470
         x, y = 154 + 99 * proportion, hero_top - 7 + 16 * proportion
@@ -120,24 +124,24 @@ def branch_curve(end_y, hero_top, hero_bottom):
         proportion = (end_y - 885) / 390
         x, y = 229 - 69 * proportion, hero_bottom + 51 + 12 * proportion
         curve = f"M {x:.1f} {y:.1f} Q {x + 35:.1f} {end_y - 75:.1f} 328 {end_y:.1f}"
-    return stroke(curve, 2.7)
+    return stroke(curve, accent, 2.7)
 
 
-def heading(title, number, y, hero_top, hero_bottom):
+def heading(title, number, y, hero_top, hero_bottom, ink, accent, ring):
     return [
-        branch_curve(y - 10, hero_top, hero_bottom),
+        branch_curve(y - 10, hero_top, hero_bottom, accent),
         f'<ellipse cx="{NUMBER_X}" cy="{y-11:.2f}" rx="15.4" ry="15.9" '
-        f'fill="none" stroke="{INK}" stroke-width="2.55"/>',
-        lettering(str(number), NUMBER_X, y - 3, 22, "middle", True),
-        lettering(title, HEADING_X, y, 35, bold=True),
+        f'fill="none" stroke="{ring}" stroke-width="2.55"/>',
+        lettering(str(number), NUMBER_X, y - 3, 22, ink, "middle", True),
+        lettering(title, HEADING_X, y, 35, ink, bold=True),
     ]
 
 
-def arrow(x1, x2, y):
+def arrow(x1, x2, y, accent):
     center = (x1 + x2) / 2
     return stroke(
         f"M {x1:.2f} {y+3:.2f} Q {center:.2f} {y-8:.2f} {x2:.2f} {y:.2f} "
-        f"M {x2-8:.2f} {y-8:.2f} L {x2:.2f} {y:.2f} L {x2-9:.2f} {y+7:.2f}"
+        f"M {x2-8:.2f} {y-8:.2f} L {x2:.2f} {y:.2f} L {x2-9:.2f} {y+7:.2f}", accent,
     )
 
 
@@ -148,7 +152,7 @@ def fit_label(label, width):
     raise ValueError(f"Label is too long for its slot: {label!r}")
 
 
-def item_row(branch, art, y, height, left):
+def item_row(branch, art, y, height, left, ink, accent):
     items = branch["items"]
     sequence = branch.get("layout") == "sequence"
     if not items:
@@ -168,20 +172,20 @@ def item_row(branch, art, y, height, left):
                    asset_width, asset_height)
         output.append(art(item["asset"], art_box, bottom=True)[0])
         label = item["label"]
-        output.append(lettering(label, center, label_y, fit_label(label, slot - 10), "middle"))
+        output.append(lettering(label, center, label_y, fit_label(label, slot - 10), ink, "middle"))
         if sequence and index < len(items) - 1:
             boundary = left + slot * (index + 1)
-            output.append(arrow(boundary - 13, boundary + 13, visual_y + visual_height * 0.59))
+            output.append(arrow(boundary - 13, boundary + 13, visual_y + visual_height * 0.59, accent))
     return output
 
 
-def callout_row(branch, art, y, height, left):
+def callout_row(branch, art, y, height, left, ink, accent, points):
     center = (left + CONTENT_RIGHT) / 2
     width = branch.get("art_width", 212)
     picture, (x, picture_y, w, h) = art(branch["asset"], (center - width / 2, y, width, height))
     output = [picture]
     for label in branch["labels"]:
-        ax, ay = label["point"]
+        ax, ay = points.get(label["text"], label["point"])
         label_y = y + height * label["y"]
         target_x, target_y = x + ax * w, picture_y + ay * h
         side = label["side"]
@@ -193,16 +197,21 @@ def callout_row(branch, art, y, height, left):
         midpoint = (start_x + target_x) / 2
         output.append(stroke(
             f"M {start_x:.1f} {start_y:.1f} Q {midpoint:.1f} {start_y:.1f} "
-            f"{target_x:.1f} {target_y:.1f}", 2.15
+            f"{target_x:.1f} {target_y:.1f}", accent, 2.15
         ))
         output.append(lettering(
-            label["text"], label_x, label_y, 26, "end" if side == "left" else "start"
+            label["text"], label_x, label_y, 26, ink, "end" if side == "left" else "start"
         ))
     return output
 
 
-def render(spec, base):
-    assets = load_assets(spec["assets"], base)
+def render(spec, base, style=None):
+    style = style if style is not None else spec.get("style", "watercolor")
+    if style not in STYLES:
+        raise ValueError("Use watercolor, flat, or diagram for the mind map style")
+    ink, accent, branch_colors = STYLES[style]
+    asset_specs = spec["assets"] | spec.get("style_assets", {}).get(style, {})
+    assets = load_assets(asset_specs, base)
 
     @cache
     def asset_uri(name):
@@ -219,13 +228,15 @@ def render(spec, base):
 
     hero, (_, hero_top, _, hero_height) = art(spec["hero"], (31, 537, 238, 299))
     hero_bottom = hero_top + hero_height
+    background = (image_markup(paper(), (0, 0, WIDTH, HEIGHT)) if style == "watercolor" else
+                  f'<rect x="0" y="0" width="{WIDTH}" height="{HEIGHT}" fill="#ffffff"/>')
     page = [
         f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
         f'width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}">',
         f'<title>{escape(spec["title"])} | English theme map</title>',
-        image_markup(paper(), (0, 0, WIDTH, HEIGHT)),
+        background,
         hero,
-        lettering(spec["title"], 150, hero_bottom + 48, fit_title(spec["title"]), "middle", True),
+        lettering(spec["title"], 150, hero_bottom + 48, fit_title(spec["title"]), ink, "middle", True),
     ]
 
     gap = 16
@@ -235,14 +246,17 @@ def render(spec, base):
         height = available * weight / sum(weights)
         title, layout = branch["title"], branch.get("layout", "items")
         heading_y = y + (33 if layout == "sequence" else height * 0.43)
-        page.extend(heading(title, number, heading_y, hero_top, hero_bottom))
+        branch_accent = branch_colors[(number - 1) % len(branch_colors)] if branch_colors else accent
+        ring = ink if style == "watercolor" else branch_accent
+        page.extend(heading(title, number, heading_y, hero_top, hero_bottom, ink, branch_accent, ring))
         left = max(486, HEADING_X + text_width(title, 35, True) + 23)
         if layout == "callouts":
-            page.extend(callout_row(branch, art, y, height, left))
+            points = asset_specs[branch["asset"]].get("callout_points", {})
+            page.extend(callout_row(branch, art, y, height, left, ink, accent, points))
         elif layout in {"items", "sequence"}:
             if layout == "sequence" and y > 910:
                 left = 321
-            page.extend(item_row(branch, art, y, height, left))
+            page.extend(item_row(branch, art, y, height, left, ink, accent))
         else:
             raise ValueError(f"Unknown branch layout {layout!r}")
         y += height + gap
@@ -261,12 +275,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("manifest", type=Path)
     parser.add_argument("svg", type=Path)
+    parser.add_argument("--style", choices=STYLES, help="Override the style specified by the manifest")
     parser.add_argument("--png", type=Path, help="Rasterize the SVG with macOS sips")
     args = parser.parse_args()
     if args.png and not shutil.which("sips"):
         parser.error("--png requires macOS sips; omit it to save an SVG")
     spec = json.loads(args.manifest.read_text(encoding="utf-8"))
-    args.svg.write_text(render(spec, args.manifest.parent), encoding="utf-8")
+    try:
+        content = render(spec, args.manifest.parent, args.style)
+    except ValueError as error:
+        parser.error(str(error))
+    args.svg.write_text(content, encoding="utf-8")
     if args.png:
         subprocess.run(
             ["sips", "-s", "format", "png", str(args.svg), "--out", str(args.png)],
