@@ -1,6 +1,14 @@
 {
   "title": "Bulldozer",
+  "zh_title": "推土机",
+  "title_ipa": {"uk": "/ˈbʊlˌdəʊzə/", "us": "/ˈbʊlˌdoʊzɚ/"},
   "hero": "hero",
+  "speaking": {
+    "question": "What does a bulldozer do?",
+    "answer": "It pushes dirt.",
+    "zh_question": "推土机能做什么？",
+    "zh_answer": "它能推土。"
+  },
   "assets": {
     "hero": {"file": "assets/bulldozer-atlas.png", "crop": [5, 68, 300, 304]},
     "parts": {"file": "assets/bulldozer-atlas.png", "crop": [304, 83, 579, 279]},
@@ -75,72 +83,79 @@
   "branches": [
     {
       "title": "Parts",
+      "zh_title": "部件",
       "layout": "callouts",
       "weight": 225,
       "asset": "parts",
       "art_width": 276,
       "labels": [
-        {"text": "cab", "side": "left", "y": 0.33, "point": [0.29, 0.27]},
-        {"text": "tracks", "side": "left", "y": 0.79, "point": [0.24, 0.92]},
-        {"text": "hood", "side": "right", "y": 0.41, "point": [0.61, 0.48]},
-        {"text": "blade", "side": "right", "y": 0.77, "point": [0.90, 0.72]}
+        {"text": "cab", "zh": "驾驶室", "ipa": {"uk": "/kæb/", "us": "/kæb/"}, "key": true, "side": "left", "y": 0.33, "point": [0.29, 0.27]},
+        {"text": "tracks", "zh": "履带", "ipa": {"uk": "/træks/", "us": "/træks/"}, "key": true, "side": "left", "y": 0.79, "point": [0.24, 0.92]},
+        {"text": "hood", "zh": "发动机罩", "ipa": {"uk": "/hʊd/", "us": "/hʊd/"}, "key": true, "side": "right", "y": 0.41, "point": [0.61, 0.48]},
+        {"text": "blade", "zh": "铲刀", "ipa": {"uk": "/bleɪd/", "us": "/bleɪd/"}, "key": true, "side": "right", "y": 0.77, "point": [0.90, 0.72]}
       ]
     },
     {
       "title": "Move",
+      "zh_title": "移动",
       "weight": 164,
       "items": [
-        {"asset": "forward", "label": "go forward"},
-        {"asset": "turn", "label": "turn"},
-        {"asset": "reverse", "label": "back up"}
+        {"asset": "forward", "label": "go forward", "zh": "向前开"},
+        {"asset": "turn", "label": "turn", "zh": "转弯", "ipa": {"uk": "/tɜːn/", "us": "/tɝːn/"}},
+        {"asset": "reverse", "label": "back up", "zh": "倒车"}
       ]
     },
     {
       "title": "Jobs",
+      "zh_title": "用途",
       "weight": 178,
       "items": [
-        {"asset": "push", "label": "push dirt"},
-        {"asset": "spread", "label": "spread gravel"},
-        {"asset": "level", "label": "level the ground"}
+        {"asset": "push", "label": "push dirt", "zh": "推土"},
+        {"asset": "spread", "label": "spread gravel", "zh": "铺碎石"},
+        {"asset": "level", "label": "level the ground", "zh": "平整地面"}
       ]
     },
     {
       "title": "Materials",
+      "zh_title": "材料",
       "weight": 145,
       "items": [
-        {"asset": "dirt", "label": "dirt"},
-        {"asset": "sand", "label": "sand"},
-        {"asset": "gravel", "label": "gravel"}
+        {"asset": "dirt", "label": "dirt", "zh": "泥土", "ipa": {"uk": "/dɜːt/", "us": "/dɝːt/"}},
+        {"asset": "sand", "label": "sand", "zh": "沙子", "ipa": {"uk": "/sænd/", "us": "/sænd/"}},
+        {"asset": "gravel", "label": "gravel", "zh": "碎石", "ipa": {"uk": "/ˈɡrævəl/", "us": "/ˈɡrævəl/"}}
       ]
     },
     {
       "title": "Places",
+      "zh_title": "工作地点",
       "weight": 166,
       "items": [
-        {"asset": "road", "label": "road work"},
-        {"asset": "site", "label": "building site"},
-        {"asset": "quarry", "label": "quarry"}
+        {"asset": "road", "label": "road work", "zh": "道路施工"},
+        {"asset": "site", "label": "building site", "zh": "建筑工地"},
+        {"asset": "quarry", "label": "quarry", "zh": "采石场", "ipa": {"uk": "/ˈkwɒri/", "us": "/ˈkwɔːri/"}}
       ]
     },
     {
       "title": "Safety",
+      "zh_title": "安全",
       "weight": 172,
       "items": [
-        {"asset": "hardhat", "label": "hard hat"},
-        {"asset": "boots", "label": "work boots"},
-        {"asset": "belt", "label": "seat belt"},
-        {"asset": "barrier", "label": "stay back"}
+        {"asset": "hardhat", "label": "hard hat", "zh": "安全帽"},
+        {"asset": "boots", "label": "work boots", "zh": "工作靴"},
+        {"asset": "belt", "label": "seat belt", "zh": "安全带"},
+        {"asset": "barrier", "label": "stay back", "zh": "保持距离"}
       ]
     },
     {
       "title": "At Work",
+      "zh_title": "工作步骤",
       "layout": "sequence",
       "weight": 207,
       "items": [
-        {"asset": "lower", "label": "lower the blade"},
-        {"asset": "push", "label": "push dirt"},
-        {"asset": "lift", "label": "lift the blade"},
-        {"asset": "back_up_raised", "label": "back up"}
+        {"asset": "lower", "label": "lower the blade", "zh": "放下铲刀"},
+        {"asset": "push", "label": "push dirt", "zh": "推土"},
+        {"asset": "lift", "label": "lift the blade", "zh": "抬起铲刀"},
+        {"asset": "back_up_raised", "label": "back up", "zh": "倒车"}
       ]
     }
   ]

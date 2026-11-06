@@ -70,3 +70,27 @@
 - `callouts` 的 `y` 是标签在分支内的相对高度，`point` 是裁切后图块上的相对坐标，左上为 `[0, 0]`。横向部件图可设 `art_width` 给主体更多宽度，检查两侧标签是否仍在页内。
 - 替换部件图后，可在新图块的定义中加 `"callout_points": {"seeds": [0.55, 0.68]}`，以标签文字定位引线端点。其他端点用分支原来的 `point`。
 - 各分支默认等高。用正数 `weight` 给标注多的剖面或步骤留更多高度。用短分支标题和短标签保持手机端清晰。
+
+## 学习标注与开口提示
+
+画法由 `style` 决定，学习标注由 `display` 决定。省略 `display` 时输出纯英文。把下面的字段加入清单即可启用学习版。命令行选项优先于清单，同一份数据可以生成多种版本。
+
+| `display` 字段 | 命令行 | 显示内容 |
+| --- | --- | --- |
+| `zh: true` | `--zh` | 主题词、图块、部位标注及问答的中文释义 |
+| `zh_headings: true` | `--zh-headings` | 分支标题的中文 |
+| `ipa: "key"` | `--ipa` 或 `--ipa key` | 主题词和标为重点的词的 IPA |
+| `ipa: "all"` | `--ipa all` | 所有已填对应读音的图块和标注 |
+| `accent: "uk"` 或 `"us"` | `--accent uk` 或 `--accent us` | 全页的 IPA 读音，默认 `uk` |
+| `qa: true` | `--qa` | 页底一组简短问答 |
+
+用 `--no-zh`、`--no-zh-headings`、`--ipa off` 和 `--no-qa` 关闭清单中已打开的选项。
+
+根级的 `zh_title` 是主题词释义，`title_ipa` 是主题词读音。分支的 `zh_title` 用作中文分支标题。给 `items` 的每个图块或 `callouts` 的每个部位标签填 `zh` 和 `ipa`，用 `"key": true` 标重点。比如一个部位标注可以写成下面这样。
+
+```json
+{"text": "blade", "zh": "铲刀", "ipa": {"uk": "/bleɪd/", "us": "/bleɪd/"},
+ "key": true, "side": "right", "y": 0.77, "point": [0.90, 0.72]}
+```
+
+`ipa` 和 `title_ipa` 按 `uk`、`us` 填入对应的读音。只排入所选读音已有的条目，缺释义的图块仍显示英文。密集导图优先为部位词和主词标音，动作分支用可指图复述的短语。`qa` 读取根级 `speaking` 中的 `question` 和 `answer`。可填 `zh_question` 和 `zh_answer`，在开启中文释义时显示。页底问答各用一句短句。

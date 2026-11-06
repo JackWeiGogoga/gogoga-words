@@ -13,7 +13,7 @@ A collection of [Agent Skills](https://agentskills.io/specification) for illustr
 | 和大人一起看图问答，或指着场景跟读 | [亲子讲读页](#亲子讲读页) |
 | 自己看图复述，或动手剪贴配对 | [打印互动练习](#打印互动练习) |
 
-[切换脑图风格](#切换脑图风格) · [切换词卡风格](#切换词卡风格)
+[切换脑图风格](#切换脑图风格) · [给脑图加学习标注](#给脑图加学习标注) · [切换词卡风格](#切换词卡风格)
 
 ## 安装
 
@@ -58,6 +58,27 @@ uv run --script skills/gogoga-words-mindmap/scripts/render.py \
 做新主题时，可让 agent 按指定画法生成插画，也可直接提供素材。手写清单时，在 `style` 里选页面风格，在 `assets` 里填对应插画。同一份清单需要切换多套插画时，用 `style_assets` 为各风格指定素材。参见[清单格式](skills/gogoga-words-mindmap/references/design.md#排版输入)。
 
 其他示例见[梨的水彩导图](examples/pear/pear.png)和[梨的清单](examples/pear/pear.json)。
+
+### 给脑图加学习标注
+
+脑图默认只显示英文。中文释义、中文分支标题、IPA 音标和页底问答可以分别打开，并与三种画风任意组合。
+
+```text
+用 gogoga-words-mindmap 做一张平涂卡通推土机导图。
+给词和分支配简短中文，只给主题词和部件词标英式音标，页底加一组看图问答。
+```
+
+<a href="examples/bulldozer/bulldozer-study.png"><img src="examples/bulldozer/bulldozer-study.png" width="380" alt="推土机学习版导图，含中文释义、中文分支标题、重点词英式音标和页底问答"></a>
+
+用同一份推土机清单生成上面的学习版。
+
+```sh
+uv run --script skills/gogoga-words-mindmap/scripts/render.py \
+  examples/bulldozer/bulldozer.json bulldozer-study.svg \
+  --style flat --zh --zh-headings --ipa key --accent uk --qa
+```
+
+按需保留 `--zh`（中文释义）、`--zh-headings`（中文分支标题）、`--ipa key`（重点词音标）和 `--qa`（页底问答）。`--ipa all` 会显示清单中有对应读音的词。用 `--accent us` 切换美式读音。也可以用清单里的 `display` 保存常用组合。参见[学习标注字段](skills/gogoga-words-mindmap/references/design.md#学习标注与开口提示)。
 
 ## 基础词汇图文卡
 
@@ -139,6 +160,9 @@ uv run --script skills/gogoga-words-mindmap/scripts/render.py \
   examples/bulldozer/bulldozer.json out/bulldozer-flat.svg --style flat --png out/bulldozer-flat.png
 uv run --script skills/gogoga-words-mindmap/scripts/render.py \
   examples/bulldozer/bulldozer.json out/bulldozer-diagram.svg --style diagram --png out/bulldozer-diagram.png
+uv run --script skills/gogoga-words-mindmap/scripts/render.py \
+  examples/bulldozer/bulldozer.json out/bulldozer-study.svg --png out/bulldozer-study.png \
+  --style flat --zh --zh-headings --ipa key --accent uk --qa
 uv run --script skills/gogoga-words-cards/scripts/render.py \
   examples/fruit/fruit.json out/fruit.svg --png out/fruit.png
 uv run --script skills/gogoga-words-cards/scripts/render.py \
