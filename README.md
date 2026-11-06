@@ -2,21 +2,16 @@
 
 把一个主题拆开，用图讲清楚，用英语说出来。
 
-给出一个主题和孩子的英语水平，这套技能会挑出可指认的部位、可比较的特征和可复述的动作，用插画、英文标注和步骤做成主题导图、图文词卡、亲子讲读页和打印练习。
+给出一个主题和孩子的英语水平，就能做出主题导图、图文词卡、亲子讲读页或打印练习。
 
 A collection of [Agent Skills](https://agentskills.io/specification) for illustrated English learning materials for children.
 
-<p>
-  <a href="examples/pear/pear.png"><img src="examples/pear/pear.png" width="310" alt="梨主题英语导图，含大小、颜色、切面标注和生长过程"></a>
-  <a href="examples/bulldozer/bulldozer.png"><img src="examples/bulldozer/bulldozer.png" width="310" alt="推土机主题英语导图，含部件标注、工作场景和推土过程"></a>
-</p>
-
-| 技能 | 生成的内容 | 示例 |
-| --- | --- | --- |
-| [gogoga-words-mindmap](skills/gogoga-words-mindmap) | 主题导图、部位标注和动作顺序 | [梨](examples/pear/pear.png) · [推土机](examples/bulldozer/bulldozer.png) |
-| [gogoga-words-cards](skills/gogoga-words-cards) | 每格一图，配英文、音标和中文 | [水果图文卡](examples/fruit/fruit.png) |
-| [gogoga-words-read-along](skills/gogoga-words-read-along) | 双语看图问答和连续领读 | [梨篇问答](examples/pear/pear-qa.png) · [梨篇领读](examples/pear/pear-read.png) |
-| [gogoga-words-practice](skills/gogoga-words-practice) | 无字复述页和可剪贴纸页 | [梨篇无字页](examples/pear/pear-blank.png) · [梨篇贴纸](examples/pear/pear-stickers.png) |
+| 想让孩子练什么 | 选哪个技能 |
+| --- | --- |
+| 看懂一个事物的部位、特征和变化 | [主题思维导图](#主题思维导图) |
+| 看图认一组词，比如水果、衣服或动物 | [基础词汇图文卡](#基础词汇图文卡) |
+| 和大人一起看图问答，或跟读短句 | [亲子讲读页](#亲子讲读页) |
+| 自己看图复述，或动手剪贴排序 | [打印互动练习](#打印互动练习) |
 
 ## 安装
 
@@ -26,23 +21,92 @@ A collection of [Agent Skills](https://agentskills.io/specification) for illustr
 npx skills add JackWeiGogoga/gogoga-words --skill gogoga-words-mindmap
 ```
 
-把 `--skill` 后的名字换成表中所需的技能，或省略它并在安装时选择。用 `--agent claude-code` 可以指定客户端，`-g` 可以安装到用户目录以供多个项目使用。如果已有本地源码，把命令里的仓库名换成本地目录路径即可。
+把 `--skill` 后的名字换成下方章节里的技能名，或省略它并在安装时选择。用 `--agent claude-code` 可以指定客户端，`-g` 可以安装到用户目录以供多个项目使用。如果已有本地源码，把命令里的仓库名换成本地目录路径即可。
 
 也可以把 [skills](skills/) 下所需技能的完整文件夹复制到客户端的技能目录。 [各客户端的技能目录](https://github.com/vercel-labs/skills/blob/main/docs/agents.md)
 
-## 使用
+安装后，把下面的示例指令发给 agent，按需换成自己的主题和孩子的英语水平。在 Codex 中也可以用 `$gogoga-words-mindmap` 这类写法点名调用。可以提供透明插画，或让支持生图的 agent 绘制。点击任意示例图可查看原图。
+
+## 主题思维导图
+
+技能名：[gogoga-words-mindmap](skills/gogoga-words-mindmap)
+
+围绕一个事物展开，把能指认的部位、能比较的特征和能按顺序讲的过程画在同一张图上。比如用梨的切面学部位，用箭头讲生长过程；也可以用推土机的侧视图学部件，再看它怎样工作。
+
+| 梨 · 颜色、部位与生长 | 推土机 · 部件与工作过程 |
+| :---: | :---: |
+| <a href="examples/pear/pear.png"><img src="examples/pear/pear.png" width="320" alt="梨主题英语导图，展示颜色、切面部位和生长过程"></a> | <a href="examples/bulldozer/bulldozer.png"><img src="examples/bulldozer/bulldozer.png" width="320" alt="推土机主题英语导图，展示部件标注、工作场景和推土步骤"></a> |
+
+**用法示例**
 
 ```text
-请用 gogoga-words-mindmap 技能给英语初学的 6 岁孩子做一张企鹅主题导图。
-选容易看图复述的词，标出身体部位，画出它在陆地和水里的动作。
-用手绘风格，输出一张竖版 SVG。
+用 gogoga-words-mindmap 给英语初学的 6 岁孩子做一张梨的导图。
+标出果皮、果肉和种子，用箭头画出从种子发芽到结果的过程。
 ```
 
-在 Codex 中也可以用 `$gogoga-words-mindmap` 点名调用。制作新主题时，提供透明插画或在支持生图的环境中让 agent 生成。可以把同一套图和词交给讲读、练习技能，按相同顺序出题或复述。
+示例清单：[梨](examples/pear/pear.json) · [推土机](examples/bulldozer/bulldozer.json)
+
+## 基础词汇图文卡
+
+技能名：[gogoga-words-cards](skills/gogoga-words-cards)
+
+把同一类词排成网格，每格放一幅插画、一个英文词、音标和中文释义。适合做水果、衣服、动物等主题的图画词典。下面这张水果词卡收录了 20 个词，统一标注英式音标。
+
+<a href="examples/fruit/fruit.png"><img src="examples/fruit/fruit.png" width="460" alt="水果图文卡，20 格插画下分别标注英文、英式音标和中文"></a>
+
+**用法示例**
+
+```text
+用 gogoga-words-cards 做一张水果词卡。选 20 种水果，排成 5 列 4 行。
+每格放一幅图，下方写英文、英式音标和中文。
+```
+
+示例清单：[水果图文卡](examples/fruit/fruit.json)
+
+## 亲子讲读页
+
+技能名：[gogoga-words-read-along](skills/gogoga-words-read-along)
+
+把主题插画和单词编成可以开口说的短句。**看图问答**为每组图配一个问题和示范回答；**连续领读**把同一组词串成一小段英文。两种都附中文，方便家长带读。
+
+| 梨篇 · 看图问答 | 梨篇 · 连续领读 |
+| :---: | :---: |
+| <a href="examples/pear/pear-qa.png"><img src="examples/pear/pear-qa.png" width="320" alt="梨篇双语问答页，每组插画配一个英文问题和示范回答"></a> | <a href="examples/pear/pear-read.png"><img src="examples/pear/pear-read.png" width="320" alt="梨篇双语领读页，每组插画配几句连贯的英文和对应中文"></a> |
+
+**用法示例**
+
+```text
+用 gogoga-words-read-along 根据这张梨的导图，做一页双语看图问答。
+每组图配一个孩子能指着图回答的问题，再给一句简短的英文示范回答。
+```
+
+把指令中的「看图问答」换成「连续领读」，就能得到右图的版式。示例清单：[梨篇讲读](examples/pear/lesson.json)。
+
+## 打印互动练习
+
+技能名：[gogoga-words-practice](skills/gogoga-words-practice)
+
+把学过的插画变成 A4 练习。**无字复述页**保留分组图片、组号和空线，让孩子自己说或写。**贴纸页**给每张图加虚线裁切框，可以剪下来做配对、排序或复述。
+
+| 梨篇 · 无字复述 | 梨篇 · 剪贴排序 |
+| :---: | :---: |
+| <a href="examples/pear/pear-blank.png"><img src="examples/pear/pear-blank.png" width="320" alt="梨篇无字复述页，保留分组插画、组号和空白书写线"></a> | <a href="examples/pear/pear-stickers.png"><img src="examples/pear/pear-stickers.png" width="320" alt="梨篇剪贴纸页，每幅插画都有独立的虚线裁切框"></a> |
+
+**用法示例**
+
+```text
+用 gogoga-words-practice 复用梨篇的插画，做一页无字复述和一页可剪贴纸。
+复述页沿用原来的分组，贴纸页让孩子把发芽、开花、结果的图排成正确顺序。
+```
+
+练习页和讲读页共用[梨篇清单](examples/pear/lesson.json)，通过 `assets_from` 复用导图插画。
 
 ## 复现示例
 
-示例附有成品、内容清单和插画。用 [uv](https://docs.astral.sh/uv/) 从仓库根目录渲染。首次运行会准备 Python 和 Pillow，之后可用缓存离线渲染。以下命令使用 macOS 自带的 `sips` 导出 PNG。只需 SVG 时，省略 `--png` 及其输出路径即可。
+用 [uv](https://docs.astral.sh/uv/) 从仓库根目录渲染。首次运行会准备 Python 和 Pillow，之后可用缓存离线渲染。生成的 SVG 内嵌插画，文字可编辑。以下命令使用 macOS 自带的 `sips` 导出 PNG。只需 SVG 时，省略 `--png` 及其输出路径即可。
+
+<details>
+<summary>展开渲染命令</summary>
 
 ```sh
 mkdir -p out
@@ -62,13 +126,9 @@ uv run --script skills/gogoga-words-practice/scripts/render.py \
   examples/pear/lesson.json out/pear-stickers.svg --mode stickers --png out/pear-stickers.png
 ```
 
-| 示例               | 展示的内容                                           | 源文件                                                                         |
-| ------------------ | ---------------------------------------------------- | ------------------------------------------------------------------------------ |
-| Pear · 梨          | 用大小和颜色做对比，用切面学部位，用箭头读生长过程   | [清单](examples/pear/pear.json) · [素材](examples/pear/assets/)                |
-| Bulldozer · 推土机 | 看侧视图学部件，用小场景读动作、材料、工地和工作流程 | [清单](examples/bulldozer/bulldozer.json) · [素材](examples/bulldozer/assets/) |
-| Fruit · 水果       | 20 张配英式音标的认词卡 | [清单](examples/fruit/fruit.json) · [素材](examples/fruit/assets/) |
+</details>
 
-梨篇的 [讲读和练习清单](examples/pear/lesson.json) 通过 `assets_from` 复用脑图的图片。生成的 SVG 内嵌插画，文字可编辑。脑图和词卡为 1080 × 1440，讲读和练习为 A4 纵向比例。打印时选择适合页面。复现预览字体时可用 macOS 的 Chalkboard 系列。
+导图和词卡为 1080 × 1440，讲读和练习为 A4 纵向比例。打印时选择「适合页面」。复现预览字体时可用 macOS 的 Chalkboard 系列。
 
 ## 项目结构
 
