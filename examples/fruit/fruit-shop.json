@@ -1,0 +1,43 @@
+{
+  "title": "Fruit Shop",
+  "zh_title": "水果店 · 亲子角色扮演",
+  "assets_from": "fruit.json",
+  "items": [
+    {"asset": "apple", "en": "apple", "plural": "apples", "zh": "苹果", "price": 2, "stock": 4},
+    {"asset": "pear", "en": "pear", "plural": "pears", "zh": "梨", "price": 3, "stock": 3},
+    {"asset": "banana", "en": "banana", "plural": "bananas", "zh": "香蕉", "price": 1, "stock": 6},
+    {"asset": "orange", "en": "orange", "plural": "oranges", "zh": "橙子", "price": 2, "stock": 5},
+    {"asset": "peach", "en": "peach", "plural": "peaches", "zh": "桃子", "price": 3, "stock": 3},
+    {"asset": "mango", "en": "mango", "plural": "mangoes", "zh": "芒果", "price": 4, "stock": 1}
+  ],
+  "roles": {
+    "buyer": {
+      "title": "Customer",
+      "zh_title": "顾客",
+      "lines": [
+        {"en": "Can I have ___, please?", "zh": "请给我……好吗？"},
+        {"en": "How much is it altogether?", "zh": "一共多少钱？"},
+        {"en": "Here you are.", "zh": "给你。"},
+        {"en": "Thank you!", "zh": "谢谢！"}
+      ]
+    },
+    "seller": {
+      "title": "Shopkeeper",
+      "zh_title": "店员",
+      "lines": [
+        {"en": "Hello! Can I help you?", "zh": "你好！你想买什么？"},
+        {"en": "How many would you like?", "zh": "你要几个？"},
+        {"en": "That's ___ coins altogether.", "zh": "一共是……枚游戏币。"},
+        {"en": "Here you are.", "zh": "给你。"}
+      ]
+    }
+  },
+  "task": {
+    "budget": 9,
+    "items": [
+      {"asset": "apple", "quantity": 2},
+      {"asset": "pear", "quantity": 1},
+      {"asset": "banana", "quantity": 1}
+    ]
+  }
+}

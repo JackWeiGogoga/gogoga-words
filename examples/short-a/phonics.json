@@ -1,0 +1,33 @@
+{
+  "title": "Short A",
+  "zh_title": "短元音 a · 拼读卡与小书",
+  "vowel": "a",
+  "known_letters": "achmrst",
+  "helper_words": ["a", "and"],
+  "assets": {
+    "cat": {"file": "assets/short-a-atlas.png", "crop": [30, 80, 391, 444]},
+    "hat": {"file": "assets/short-a-atlas.png", "crop": [391, 151, 770, 381]},
+    "mat": {"file": "assets/short-a-atlas.png", "crop": [768, 185, 1148, 399]},
+    "rat": {"file": "assets/short-a-atlas.png", "crop": [1145, 137, 1526, 424]},
+    "cat-sat": {"file": "assets/short-a-atlas.png", "crop": [5, 571, 379, 942]},
+    "rat-sat": {"file": "assets/short-a-atlas.png", "crop": [389, 637, 754, 942]},
+    "both-sat": {"file": "assets/short-a-atlas.png", "crop": [755, 597, 1149, 942]}
+  },
+  "cards": [
+    {"word": "cat", "asset": "cat"},
+    {"word": "hat", "asset": "hat"},
+    {"word": "mat", "asset": "mat"},
+    {"word": "rat", "asset": "rat"},
+    {"word": "sat", "asset": "cat-sat"}
+  ],
+  "pages": [
+    {"text": "Cat and Rat", "asset": "both-sat"},
+    {"text": "A cat.", "asset": "cat"},
+    {"text": "A rat.", "asset": "rat"},
+    {"text": "A hat.", "asset": "hat"},
+    {"text": "A mat.", "asset": "mat"},
+    {"text": "A cat sat.", "asset": "cat-sat"},
+    {"text": "A rat sat.", "asset": "rat-sat"},
+    {"text": "A cat and a rat sat.", "asset": "both-sat"}
+  ]
+}

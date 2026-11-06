@@ -21,6 +21,8 @@ MUTED = "#66574e"
 ACCENT = "#925748"
 PAPER = "#fffdfa"
 LINE = "#ded4c9"
+A4 = (1240, 1754)
+ACTIVITY_MARGIN = 64
 FONTS = {
     "display": ("Chalkboard SE, Comic Sans MS, sans-serif", "ChalkboardSE.ttc", 2),
     "en": ("Arial, sans-serif", "Arial.ttf", 0),
@@ -132,10 +134,11 @@ class Page:
             f'rx="{radius}" fill="{fill}" stroke="{stroke}" stroke-width="1.6"{dashes}/>'
         )
 
-    def line(self, x1, y1, x2, y2, color=LINE, width=1.6):
+    def line(self, x1, y1, x2, y2, color=LINE, width=1.6, dash=None):
+        dashes = f' stroke-dasharray="{dash}"' if dash else ""
         self.markup.append(
             f'<path d="M {x1:.2f} {y1:.2f} L {x2:.2f} {y2:.2f}" '
-            f'fill="none" stroke="{color}" stroke-width="{width}" stroke-linecap="round"/>'
+            f'fill="none" stroke="{color}" stroke-width="{width}" stroke-linecap="round"{dashes}/>'
         )
 
     def text(self, value, x, y, size, style="en", color=INK, anchor="start", max_width=None):
@@ -165,6 +168,17 @@ class Page:
 
     def svg(self):
         return "\n".join((*self.markup, "</svg>", ""))
+
+
+def activity_page(spec, label, accent=ACCENT):
+    width, height = A4
+    margin = ACTIVITY_MARGIN
+    page = Page(width, height, f'{spec["title"]} | {label}', "#ffffff")
+    page.text(label, width - margin, 72, 26, "strong", accent, "end", max_width=310)
+    page.text(spec["title"], margin, 90, 62, "display", max_width=width - 2 * margin - 334)
+    page.text(spec["zh_title"], margin, 137, 30, "zh", MUTED, max_width=width - 2 * margin)
+    page.line(margin, 159, width - margin, 159, accent, 2)
+    return page
 
 
 def batches(items, count):

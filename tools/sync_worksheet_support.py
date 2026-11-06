@@ -11,7 +11,7 @@ def main():
     args = parser.parse_args()
     tools = Path(__file__).resolve().parent
     code = (tools / "worksheet.py").read_bytes()
-    for skill in ("cards", "read-along", "practice"):
+    for skill in ("cards", "read-along", "practice", "games", "roleplay", "story", "phonics"):
         destination = tools.parent / "skills" / f"gogoga-words-{skill}" / "scripts" / "worksheet.py"
         if args.check:
             if not destination.is_file() or destination.read_bytes() != code:

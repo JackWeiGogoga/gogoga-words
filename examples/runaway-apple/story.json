@@ -1,0 +1,36 @@
+{
+  "title": "The Runaway Apple",
+  "zh_title": "滚走的苹果",
+  "assets": {
+    "carry": {"file": "assets/apple-story.png", "crop": [0, 0, 721, 540]},
+    "roll": {"file": "assets/apple-story.png", "crop": [726, 0, 1448, 540]},
+    "find": {"file": "assets/apple-story.png", "crop": [0, 545, 721, 1086]},
+    "return": {"file": "assets/apple-story.png", "crop": [726, 545, 1448, 1086]}
+  },
+  "scenes": [
+    {
+      "asset": "carry",
+      "en": "Mia carries a basket of apples.",
+      "zh": "米娅提着一篮苹果。",
+      "prompt": {"en": "What is Mia carrying?", "zh": "米娅提着什么？"}
+    },
+    {
+      "asset": "roll",
+      "en": "One apple rolls away.",
+      "zh": "一个苹果滚走了。",
+      "prompt": {"en": "What happens to one apple?", "zh": "有一个苹果怎么了？"}
+    },
+    {
+      "asset": "find",
+      "en": "Mia finds it under the bench.",
+      "zh": "米娅在长椅底下找到了苹果。",
+      "prompt": {"en": "Where does Mia find the apple?", "zh": "米娅在哪里找到了苹果？"}
+    },
+    {
+      "asset": "return",
+      "en": "She puts it back in the basket.",
+      "zh": "她把苹果放回篮子里。",
+      "prompt": {"en": "What does Mia do with the apple?", "zh": "米娅怎么处理这个苹果？"}
+    }
+  ]
+}

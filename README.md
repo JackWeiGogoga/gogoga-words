@@ -2,7 +2,7 @@
 
 把一个主题拆开，用图讲清楚，用英语说出来。
 
-给出一个主题和孩子的英语水平，就能做出主题导图、图文词卡、亲子讲读页或打印练习。
+给出一个主题和孩子的英语水平，就能做出导图、图文词卡、亲子讲读页和可打印的英语活动。
 
 A collection of [Agent Skills](https://agentskills.io/specification) for illustrated English learning materials for children.
 
@@ -12,6 +12,10 @@ A collection of [Agent Skills](https://agentskills.io/specification) for illustr
 | 看图认一组词，比如水果、衣服或动物 | [基础词汇图文卡](#基础词汇图文卡) |
 | 和大人一起看图问答，或指着场景跟读 | [亲子讲读页](#亲子讲读页) |
 | 自己看图复述，或动手剪贴配对 | [打印互动练习](#打印互动练习) |
+| 听到英文词，在棋盘上找到对应图片 | [图词宾果](#图词宾果) |
+| 扮演顾客和店员，用英语完成购物任务 | [情景任务包](#情景任务包) |
+| 把四张图排好，按顺序讲一个故事 | [四格故事与复述](#四格故事与复述) |
+| 把字母音连起来读，再读一本短元音小书 | [短元音拼读小书](#短元音拼读小书) |
 
 [切换脑图风格](#切换脑图风格) · [给脑图加学习标注](#给脑图加学习标注) · [切换词卡风格](#切换词卡风格)
 
@@ -143,6 +147,74 @@ uv run --script skills/gogoga-words-mindmap/scripts/render.py \
 
 练习示例见[梨篇清单](examples/pear/lesson.json)和[交通工具配对清单](examples/vehicles/practice.json)。交通工具配对复用了词卡的素材，可选彩色图或线稿。
 
+## 图词宾果
+
+技能名：[gogoga-words-games](skills/gogoga-words-games)
+
+把同一组词做成多张不同的看图棋盘和带英文的叫词卡。家长或老师只念英文，孩子找图、盖住格子，连满一排就喊 Bingo。可以直接复用词卡清单。
+
+| 交通工具 · 玩家棋盘 | 交通工具 · 叫词卡 |
+| :---: | :---: |
+| <a href="examples/vehicles/bingo-01.png"><img src="examples/vehicles/bingo-01.png" width="320" alt="交通工具宾果棋盘，3×3 格子里只有图片"></a> | <a href="examples/vehicles/bingo-05.png"><img src="examples/vehicles/bingo-05.png" width="320" alt="十张交通工具叫词卡，每张有图片、英文和中文"></a> |
+
+```text
+用 gogoga-words-games 复用交通工具词卡，做四张 3×3 的看图宾果棋盘和一页叫词卡。
+棋盘里只放图片，叫词卡上放英文和中文。
+```
+
+示例复用[交通工具词卡清单](examples/vehicles/vehicles.json)。另见[棋盘 2](examples/vehicles/bingo-02.png)、[棋盘 3](examples/vehicles/bingo-03.png)和[棋盘 4](examples/vehicles/bingo-04.png)。
+
+## 情景任务包
+
+技能名：[gogoga-words-roleplay](skills/gogoga-words-roleplay)
+
+围绕一个任务安排对话。顾客拿带预算和数量的清单，店员拿库存和双语提示，双方看图询价、点单和结账。渲染时会检查预算与库存能否满足清单。
+
+| 水果店 · 图文价目表 | 水果店 · 双语角色卡 | 水果店 · 购物任务单 |
+| :---: | :---: | :---: |
+| <a href="examples/fruit/fruit-shop-01.png"><img src="examples/fruit/fruit-shop-01.png" width="245" alt="水果价目表，显示六种水果的图片、名称和单价"></a> | <a href="examples/fruit/fruit-shop-02.png"><img src="examples/fruit/fruit-shop-02.png" width="245" alt="可剪下的顾客和店员双语角色卡，店员卡带库存"></a> | <a href="examples/fruit/fruit-shop-03.png"><img src="examples/fruit/fruit-shop-03.png" width="245" alt="九枚游戏币的购物任务单，含三项购物清单和勾选框"></a> |
+
+```text
+用 gogoga-words-roleplay 做一个水果店任务。孩子拿 9 枚游戏币买 2 个苹果、1 个梨和 1 根香蕉。
+做一页图文价目表、顾客和店员双语角色卡，以及一张购物任务单。
+```
+
+示例见[水果店清单](examples/fruit/fruit-shop.json)，插画复用水果词卡。
+
+## 四格故事与复述
+
+技能名：[gogoga-words-story](skills/gogoga-words-story)
+
+用同一个角色和四个能从画面看懂的动作讲一件小事。孩子先看双语故事，再把打乱的无字图卡排回去。家长可以用提问和 `First`、`Next`、`Then`、`Finally` 帮孩子把四步讲完整。
+
+| 滚走的苹果 · 双语故事 | 滚走的苹果 · 无字排序卡 | 滚走的苹果 · 家长复述提示 |
+| :---: | :---: | :---: |
+| <a href="examples/runaway-apple/story-01.png"><img src="examples/runaway-apple/story-01.png" width="245" alt="四格双语故事，讲米娅捡回滚走的苹果"></a> | <a href="examples/runaway-apple/story-02.png"><img src="examples/runaway-apple/story-02.png" width="245" alt="四张打乱顺序的无字故事图卡，带裁切虚线"></a> | <a href="examples/runaway-apple/story-03.png"><img src="examples/runaway-apple/story-03.png" width="245" alt="家长用的排序答案和逐格双语提问"></a> |
+
+```text
+用 gogoga-words-story 做四格故事《滚走的苹果》。让孩子看出苹果从篮子里滚走，最后被米娅捡回来。
+每格一句简单英文和中文。另做打乱的无字图卡、排序答案和家长提问。
+```
+
+示例见[四格故事清单](examples/runaway-apple/story.json)。
+
+## 短元音拼读小书
+
+技能名：[gogoga-words-phonics](skills/gogoga-words-phonics)
+
+选一个短元音，用图和字母格练习把三个音连起来读。再用这些词写一本八页小书。渲染时逐词检查，只允许所选短元音和已学字母组成的词表词，以及明确列出的辅助词。
+
+| 短元音 a · 拼读卡 | Cat and Rat · 横向折页 |
+| :---: | :---: |
+| <a href="examples/short-a/short-a-01.png"><img src="examples/short-a/short-a-01.png" width="245" alt="短元音 a 拼读卡，五个图文词各有三个字母格"></a> | <a href="examples/short-a/short-a-02.png"><img src="examples/short-a/short-a-02.png" width="380" alt="八页拼读小书的横向折页，上排倒置，虚线折叠，实线裁切"></a> |
+
+```text
+用 gogoga-words-phonics 做短元音 a 的拼读卡和八页小书。孩子已学 a、c、h、m、r、s、t。
+用 cat、hat、mat、rat、sat 练习合音。小书可以用 a 和 and 作辅助词。
+```
+
+示例见[短元音 a 清单](examples/short-a/phonics.json)。小书用一张 A4 横向单面打印，按[折页说明](skills/gogoga-words-phonics/references/manifest.md#折成八页小书)剪折。
+
 ## 复现示例
 
 用 [uv](https://docs.astral.sh/uv/) 从仓库根目录渲染。首次运行会准备 Python 和 Pillow，之后可用缓存离线渲染。生成的 SVG 内嵌插画，文字可编辑。以下命令使用 macOS 自带的 `sips` 导出 PNG。只需 SVG 时，省略 `--png` 及其输出路径即可。
@@ -181,11 +253,19 @@ uv run --script skills/gogoga-words-practice/scripts/render.py \
   examples/vehicles/practice.json out/match.svg --mode match --png out/match.png
 uv run --script skills/gogoga-words-practice/scripts/render.py \
   examples/vehicles/practice.json out/match-ink.svg --mode match --line-art --png out/match-ink.png
+uv run --script skills/gogoga-words-games/scripts/render.py \
+  examples/vehicles/vehicles.json out/bingo.svg --png out/bingo.png
+uv run --script skills/gogoga-words-roleplay/scripts/render.py \
+  examples/fruit/fruit-shop.json out/fruit-shop.svg --png out/fruit-shop.png
+uv run --script skills/gogoga-words-story/scripts/render.py \
+  examples/runaway-apple/story.json out/story.svg --png out/story.png
+uv run --script skills/gogoga-words-phonics/scripts/render.py \
+  examples/short-a/phonics.json out/short-a.svg --png out/short-a.png
 ```
 
 </details>
 
-导图和词卡为 1080 × 1440，讲读和练习为 A4 纵向比例。打印时选择「适合页面」。复现预览字体时可用 macOS 的 Chalkboard 系列。
+导图和词卡为 1080 × 1440。讲读和活动页为 A4 纵向比例，拼读小书使用 A4 横向比例。打印时选择「适合页面」。复现预览字体时可用 macOS 的 Chalkboard 系列。
 
 ## 项目结构
 
@@ -194,19 +274,25 @@ skills/
 ├── gogoga-words-mindmap/
 ├── gogoga-words-cards/
 ├── gogoga-words-read-along/
-└── gogoga-words-practice/
+├── gogoga-words-practice/
+├── gogoga-words-games/
+├── gogoga-words-roleplay/
+├── gogoga-words-story/
+└── gogoga-words-phonics/
 examples/
 ├── bulldozer/
 ├── farm/
 ├── fruit/
 ├── pear/
+├── runaway-apple/
+├── short-a/
 └── vehicles/
 tools/
 ├── worksheet.py
 └── sync_worksheet_support.py
 ```
 
-每个技能目录包含独立的 `SKILL.md`、清单说明和渲染脚本。修改共用的 [worksheet.py](tools/worksheet.py) 后，运行 `python3 tools/sync_worksheet_support.py` 更新词卡、讲读和练习技能各自随包安装的副本。修改或添加主题时，可从现有 JSON 清单开始。报告渲染问题时，请附上可复现的清单和预览。 [Issues](https://github.com/JackWeiGogoga/gogoga-words/issues)
+每个技能目录包含独立的 `SKILL.md`、清单说明和渲染脚本。修改共用的 [worksheet.py](tools/worksheet.py) 后，运行 `python3 tools/sync_worksheet_support.py` 更新随各技能安装的副本。修改或添加主题时，可从现有 JSON 清单开始。报告渲染问题时，请附上可复现的清单和预览。 [Issues](https://github.com/JackWeiGogoga/gogoga-words/issues)
 
 ## 许可
 
